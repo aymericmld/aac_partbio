@@ -37,13 +37,13 @@ PG:"host=localhost port=5432 dbname=postgres user=postgres password=postgres"
 -lco GEOMETRY_NAME=geom
 -nlt PROMOTE_TO_MULTI`
 
-# Classification des cultures par catégorie agricole
+## Classification des cultures par catégorie agricole
 
 Ce projet ajoute une colonne `categorie` aux référentiels de cultures utilisés pour la
 qualification des parcelles agricoles (CPFBIO, PAC/RPG), en rattachant chaque code de
 production à l'une des 8 grandes catégories métier définies ci-dessous.
 
-## Catégories cibles
+### Catégories cibles
 
 | Catégorie | Description |
 |---|---|
@@ -56,7 +56,7 @@ production à l'une des 8 grandes catégories métier définies ci-dessous.
 | Plantes à parfum, aromatiques et médicinales (PPAM) | PPAM et plantes à boisson (café, thé, houblon...) |
 | Autres | Tout le reste : cultures industrielles non oléagineuses, jachères, surfaces non productives, sylviculture, aquaculture, éléments paysagers... |
 
-## Méthodologie
+### Méthodologie
 
 1. **Classification par groupe/sous-groupe.** Chaque référentiel source possède déjà une
    hiérarchie (`groupe` + `sous_groupe` pour CPFBIO, `CODE_GROUPE_CULTURE` +
@@ -74,9 +74,9 @@ production à l'une des 8 grandes catégories métier définies ci-dessous.
    oléagineuses comme la betterave sucrière, le tabac ou la canne à sucre) est classée en
    **Autres**.
 
-## Fichiers traités
+### Fichiers traités
 
-### 1. `liste-cultures-cpfbio.xlsx` (onglet `CPFBIO`)
+#### 1. `liste-cultures-cpfbio.xlsx` (onglet `CPFBIO`)
 
 Colonnes sources : `groupe`, `sous_groupe`, `lbl_production`, `code_production`, `précisions`.
 
@@ -102,7 +102,7 @@ Exceptions dans "Autres surfaces" (reclassées hors "Autres") :
 
 → Fichier produit : `liste-cultures-cpfbio-classifie.xlsx`
 
-### 2. `REF_CULTURES_GROUPES_CULTURES_2024.csv`
+#### 2. `REF_CULTURES_GROUPES_CULTURES_2024.csv`
 
 Colonnes sources : `CODE_CULTURE`, `LIBELLE_CULTURE`, `CODE_GROUPE_CULTURE`, `LIBELLE_GROUPE_CULTURE`.
 
@@ -129,7 +129,7 @@ Restent en "Autres" : betterave, tabac, chanvre/lin fibre, canne à sucre, jach�
 → Fichiers produits : `REF_CULTURES_GROUPES_CULTURES_2024_classifie.csv` /
 `.xlsx`
 
-## Limites et arbitrages
+### Limites et arbitrages
 
 - Ces classifications reposent sur une lecture métier des libellés de culture ; certains
   arbitrages sont discutables
@@ -137,7 +137,7 @@ Restent en "Autres" : betterave, tabac, chanvre/lin fibre, canne à sucre, jach�
   l'application de la même grille de catégories et des mêmes principes d'arbitrage, mais pas
   par un recoupement systématique code à code entre les deux fichiers.
 
-## Prompt réutilisable (pour IA)
+### Prompt réutilisable (pour IA)
 
 Le prompt ci-dessous peut être copié tel quel pour reproduire cette classification sur un
 nouveau référentiel de cultures.
