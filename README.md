@@ -1,6 +1,9 @@
-# Part des parcelles en AB sur les aires d'alimentation de captage (AAC)
+# Parcelles agricoles sur les aires d'alimentation de captage (AAC)
 
 ## Présentation du projet
+Croisement des parcelles du Registre parcellaire graphique (RPG) publié par l'IGN et des parcelles certifiées en agriculture biologique publiées par l'Agence BIO afin de spécifier les cultures présentes sur les AAC et la part en bio. 
+
+Le projet propose une classification des cultures communes entre les deux sources de données. 
 
 ## Pré-requis
 
@@ -190,8 +193,127 @@ Contraintes :
   séparément.
 ```
 
-
 ## Données
+
+
+## Méthodologie de croisement des données
+
+
+Le traitement consiste à croiser deux sources de données parcellaires :
+
+- **RPG Bio 2024**, contenant les parcelles identifiées comme biologiques ;
+- **RPG IGN 2024**, utilisé comme référentiel général des parcelles.
+
+L'objectif est de produire une table unique de parcelles en donnant la priorité aux informations issues du RPG Bio lorsqu'une parcelle biologique correspond spatialement à une parcelle IGN.
+
+### 1. Définition de l'emprise géographique
+
+Une emprise de travail est d'abord construite à partir des **AAC (Aires d'Alimentation de Captages)**.
+
+Les géométries des AAC sont transformées dans un même système de coordonnées, puis une **zone tampon de 500 mètres** est appliquée. L'ensemble des géométries obtenues est ensuite fusionné.
+
+Cette emprise permet de limiter le traitement aux parcelles situées dans ou à proximité des AAC.
+
+### 2. Préparation des données géographiques
+
+Les géométries des parcelles Bio et IGN sont :
+
+1. transformées dans un même système de coordonnées ;
+2. corrigées afin de disposer de géométries valides ;
+3. filtrées pour ne conserver que les parcelles qui intersectent l'emprise des AAC.
+
+Pour chaque parcelle, un **centroïde** est également calculé. Celui-ci sert ensuite à rechercher la parcelle IGN la plus proche d'une parcelle Bio.
+
+### 3. Recherche de la correspondance Bio → IGN
+
+Pour chaque parcelle du RPG Bio, le traitement recherche la parcelle du RPG IGN dont le **centroïde est le plus proche**.
+
+La distance entre les deux centroïdes permet d'identifier la parcelle IGN candidate la plus proche.
+
+Cette étape permet donc d'établir une relation entre une parcelle Bio et sa parcelle IGN de référence.
+
+### 4. Vérification du recouvrement spatial
+
+La proximité des centres ne suffit pas à elle seule pour considérer deux parcelles comme correspondantes.
+
+La correspondance est donc vérifiée en comparant directement les géométries des deux parcelles.
+
+Deux parcelles sont considérées comme se correspondant lorsqu'elles présentent un **recouvrement spatial**.
+
+Cette vérification permet notamment d'éviter de considérer comme équivalentes deux parcelles simplement parce qu'elles sont proches géographiquement.
+
+### 5. Fusion des informations
+
+Une fois les correspondances établies, les informations des deux sources sont regroupées dans un référentiel parcellaire commun.
+
+Lorsqu'une parcelle Bio correspond à une parcelle IGN, les informations du **RPG Bio sont prioritaires**.
+
+Cela concerne notamment :
+
+- l'identifiant de parcelle ;
+- la catégorie ;
+- le statut de conversion ;
+- la surface ;
+- la géométrie.
+
+Lorsqu'aucune information Bio n'est disponible, les informations issues du RPG IGN sont utilisées.
+
+Les parcelles IGN qui ne trouvent pas de correspondance avec une parcelle Bio sont également conservées. Le croisement ne supprime donc pas les parcelles présentes uniquement dans le référentiel IGN.
+
+### 6. Rattachement aux AAC
+
+Après la fusion des deux référentiels, les parcelles obtenues sont à nouveau croisées avec les AAC afin d'identifier les AAC auxquelles elles sont rattachées.
+
+Le rattachement repose sur le **recouvrement géographique entre la parcelle et l'AAC**.
+
+Une parcelle n'a pas besoin d'être entièrement située dans une AAC pour être conservée : **une parcelle qui chevauche la limite d'une AAC est également prise en compte**.
+
+Le centroïde de la parcelle n'intervient pas dans ce rattachement final. Il est uniquement utilisé lors de la recherche de correspondance entre les parcelles Bio et IGN.
+
+Le résultat final associe ainsi les parcelles retenues à l'identifiant de l'AAC correspondante.
+
+### Schéma simplifié du croisement
+
+```text
+              AAC 2024
+                  │
+          Buffer de 500 m
+                  │
+          ┌───────▼───────┐
+          │ Emprise AAC   │
+          └───────┬───────┘
+                  │
+        ┌─────────┴─────────┐
+        │                   │
+    RPG Bio 2024        RPG IGN 2024
+        │                   │
+        └───────┬───────────┘
+                │
+       Recherche du plus
+       proche par centroïde
+                │
+                ▼
+       Vérification spatiale
+        du recouvrement
+                │
+                ▼
+       Correspondance Bio ↔ IGN
+                │
+                ▼
+       Fusion des informations
+       Priorité aux données Bio
+                │
+                ▼
+       Référentiel parcellaire
+              final
+                │
+                │
+                ▼
+       Rattachement aux AAC
+                │
+                ▼
+            parcel_aac
+
 
 ## Licence
 
