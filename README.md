@@ -201,8 +201,8 @@ Contraintes :
 
 Le traitement consiste à croiser deux sources de données parcellaires :
 
-- **RPG Bio 2024**, contenant les parcelles identifiées comme biologiques ;
-- **RPG IGN 2024**, utilisé comme référentiel général des parcelles.
+- **Les parcelles certifiées publiées par l'Agence BIO**, contenant les parcelles identifiées comme biologiques ;
+- **Le RPG publié par l'IGN**, utilisé comme référentiel général des parcelles.
 
 L'objectif est de produire une table unique de parcelles en donnant la priorité aux informations issues du RPG Bio lorsqu'une parcelle biologique correspond spatialement à une parcelle IGN.
 
@@ -210,9 +210,9 @@ L'objectif est de produire une table unique de parcelles en donnant la priorité
 
 Une emprise de travail est d'abord construite à partir des **AAC (Aires d'Alimentation de Captages)**.
 
-Les géométries des AAC sont transformées dans un même système de coordonnées, puis une **zone tampon de 500 mètres** est appliquée. L'ensemble des géométries obtenues est ensuite fusionné.
+Les géométries des AAC sont transformées dans un même système de coordonnées, puis une **zone tampon de 500 mètres** est appliquée. 
 
-Cette emprise permet de limiter le traitement aux parcelles situées dans ou à proximité des AAC.
+Cette emprise permet de limiter le traitement aux parcelles situées dans ou à proximité des AAC et de faciliter le croisement des données par la suite. 
 
 ### 2. Préparation des données géographiques
 
@@ -220,7 +220,8 @@ Les géométries des parcelles Bio et IGN sont :
 
 1. transformées dans un même système de coordonnées ;
 2. corrigées afin de disposer de géométries valides ;
-3. filtrées pour ne conserver que les parcelles qui intersectent l'emprise des AAC.
+3. amendées avec les groupes de culture définis en amont ;
+4. filtrées pour ne conserver que les parcelles qui intersectent l'emprise des AAC.
 
 Pour chaque parcelle, un **centroïde** est également calculé. Celui-ci sert ensuite à rechercher la parcelle IGN la plus proche d'une parcelle Bio.
 
@@ -251,14 +252,14 @@ Lorsqu'une parcelle Bio correspond à une parcelle IGN, les informations du **RP
 Cela concerne notamment :
 
 - l'identifiant de parcelle ;
-- la catégorie ;
+- le groupe de culture ;
 - le statut de conversion ;
 - la surface ;
 - la géométrie.
 
 Lorsqu'aucune information Bio n'est disponible, les informations issues du RPG IGN sont utilisées.
 
-Les parcelles IGN qui ne trouvent pas de correspondance avec une parcelle Bio sont également conservées. Le croisement ne supprime donc pas les parcelles présentes uniquement dans le référentiel IGN.
+Les parcelles IGN qui ne trouvent pas de correspondance avec une parcelle Bio sont également conservées. Le croisement ne supprime donc pas les parcelles présentes uniquement dans le référentiel IGN. Idem pour les parcelles Bio non présentes dans le référentiel IGN. 
 
 ### 6. Rattachement aux AAC
 
