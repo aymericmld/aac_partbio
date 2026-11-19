@@ -136,8 +136,9 @@
 
   // -------------------------------------------------------------- carte
   const map = L.map("map", { zoomControl: true, scrollWheelZoom: false, preferCanvas: true }).setView([46.6, 2.4], 6);
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-    attribution: "© OpenStreetMap, © CARTO", subdomains: "abcd", maxZoom: 18,
+  // Plan IGN v2 (Géoplateforme) : libre, sans clé d'API.
+  L.tileLayer("https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/png&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}", {
+    attribution: '<a href="https://www.ign.fr/">© IGN</a> Plan IGN', maxZoom: 18, className: "fond-ign",
   }).addTo(map);
   map.on("focus", () => map.scrollWheelZoom.enable());
   map.on("blur", () => map.scrollWheelZoom.disable());
