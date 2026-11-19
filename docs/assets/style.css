@@ -140,6 +140,7 @@ a { color: var(--water); }
 .map-layout { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 1.4rem; margin-top: 1.4rem; }
 .map-wrap { position: relative; border-radius: 22px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--line); background: #eef0ea; }
 #map { height: 72vh; min-height: 520px; }
+.fond-ign { filter: grayscale(1) contrast(0.9) brightness(1.08); opacity: 0.75; }
 .toolbar { display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: center; }
 .capsule {
   display: flex; align-items: center; gap: 0.5rem; background: var(--surface); border: 1px solid var(--line);
