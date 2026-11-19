@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cultures et bio sur les aires d'alimentation de captage</title>
+  <meta name="description" content="Quelles cultures, et quelle part de bio, sur les aires d'alimentation des captages d'eau potable en France ? Croisement du RPG (IGN), de CartoBio (Agence Bio) et des AAC (Sandre).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="demo-banner" id="demo-banner" hidden>
+  <strong>Données de démonstration.</strong> Les chiffres de cette page viennent d'un jeu synthétique
+  qui sert à tester la chaîne : ils ne décrivent aucune AAC réelle. Ils seront remplacés à la première
+  exécution sur les données officielles.
+</div>
+
+<nav class="sidebar" aria-label="Sections">
+  <div class="dots" id="dots"></div>
+</nav>
+
+<main>
+  <!-- 1. ACCUEIL -->
+  <section class="section" id="accueil" data-titre="Accueil">
+    <div class="split" style="width:100%">
+      <div class="reveal">
+        <span class="kicker">Eau potable · Agriculture · Open data</span>
+        <h1>Que cultive-t-on là où l'eau potable <em>prend sa source</em>&nbsp;?</h1>
+        <p class="lead" style="margin-top:1.6rem">
+          Les aires d'alimentation de captage (AAC) délimitent les terres dont l'eau rejoint un captage
+          d'eau potable. Ce projet croise trois sources ouvertes pour décrire, parcelle par parcelle,
+          les cultures qui s'y trouvent et la part conduite en agriculture biologique.
+        </p>
+        <div class="hero-kpis">
+          <div class="kpi"><div class="big num" id="kpi-aac">–</div><div class="label">aires d'alimentation de captage analysées</div></div>
+          <div class="kpi"><div class="big num" id="kpi-sau">–</div><div class="label">de surface agricole dans ces AAC</div></div>
+          <div class="kpi"><div class="big green num" id="kpi-bio">–</div><div class="label">de cette surface en bio ou en conversion</div></div>
+        </div>
+        <p class="compare-line" id="compare-line"></p>
+        <div class="scroll-hint">FAITES DÉFILER POUR DÉCOUVRIR LA SUITE <i class="fa-solid fa-chevron-down"></i></div>
+      </div>
+      <div class="id-card reveal">
+        <h3>Trois sources, un seul référentiel parcellaire</h3>
+        <div class="source-row">
+          <div class="ico conv"><i class="fa-solid fa-tractor"></i></div>
+          <div><b>Registre parcellaire graphique</b><span>IGN · parcelles déclarées à la PAC</span></div>
+          <span class="pill" id="pill-rpg">–</span>
+        </div>
+        <div class="source-row">
+          <div class="ico"><i class="fa-solid fa-seedling"></i></div>
+          <div><b>Parcelles certifiées bio (CartoBio)</b><span>Agence Bio · certifiées et en conversion</span></div>
+          <span class="pill" id="pill-bio">–</span>
+        </div>
+        <div class="source-row">
+          <div class="ico water"><i class="fa-solid fa-droplet"></i></div>
+          <div><b>Aires d'alimentation de captage</b><span>Sandre / OFB · référentiel national</span></div>
+          <span class="pill">extraction actuelle</span>
+        </div>
+        <p class="muted" style="margin:1.2rem 0 0">
+          Les parcelles bio priment sur les parcelles du RPG quand elles se superposent. Chaque parcelle
+          est ensuite rattachée aux AAC qu'elle touche, pour la seule partie située à l'intérieur.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. ENJEU -->
+  <section class="section" id="enjeu" data-titre="Enjeu">
+    <div class="reveal">
+      <span class="kicker">Pourquoi ce sujet</span>
+      <h2>Protéger l'eau à la source<br>plutôt que la traiter ensuite</h2>
+      <p class="lead">
+        Une AAC correspond aux surfaces sur lesquelles l'eau qui s'infiltre ou ruisselle alimente un
+        captage. Ce qui est cultivé sur ces terres, et la manière de le cultiver, se retrouve donc en
+        partie dans l'eau prélevée. Connaître l'occupation agricole de chaque AAC est la première étape
+        d'un plan d'action.
+      </p>
+    </div>
+    <div class="cards3">
+      <div class="card reveal"><i class="fa-solid fa-map-location-dot"></i><h3>Où agir</h3>
+        <p>Repérer les AAC où l'agriculture occupe le plus de place et celles où le bio est déjà bien implanté.</p></div>
+      <div class="card reveal"><i class="fa-solid fa-wheat-awn"></i><h3>Sur quoi agir</h3>
+        <p>Savoir quelles cultures dominent : une AAC en prairies n'appelle pas les mêmes leviers qu'une AAC en grandes cultures.</p></div>
+      <div class="card reveal"><i class="fa-solid fa-chart-line"></i><h3>Suivre</h3>
+        <p>Comparer les millésimes sur le même périmètre d'AAC pour mesurer la progression du bio dans le temps.</p></div>
+    </div>
+  </section>
+
+  <!-- 3. MÉTHODE -->
+  <section class="section" id="methode" data-titre="Méthode">
+    <div class="reveal">
+      <span class="kicker">Diagnostic &amp; méthode</span>
+      <h2>Quatre étapes en PostGIS</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><h3>Emprise</h3><p>Les AAC sont nettoyées puis élargies d'un tampon de <span id="m-buffer">500</span> m pour sélectionner les parcelles proches.</p></div>
+      <div class="step reveal"><h3>Préparation</h3><p>Géométries corrigées et projetées en Lambert 93, cultures classées dans 8 catégories communes aux deux référentiels.</p></div>
+      <div class="step reveal"><h3>Appariement</h3><p>Chaque parcelle bio est comparée aux parcelles du RPG qu'elle chevauche, en surface réellement commune.</p></div>
+      <div class="step reveal"><h3>Rattachement</h3><p>Les parcelles sont coupées aux limites des AAC. Une parcelle à cheval sur deux AAC n'est comptée qu'une fois au total.</p></div>
+    </div>
+    <div class="rule-box reveal">
+      <div>
+        <h3>La règle de priorité au bio</h3>
+        <p>Une parcelle du RPG est remplacée par les parcelles bio qui la recouvrent dès qu'elles couvrent au moins
+          <b id="m-seuil">50 %</b> de sa surface. Les parcelles bio absentes du RPG sont conservées, tout comme les
+          parcelles du RPG constatées bio sans équivalent dans CartoBio.</p>
+      </div>
+      <div class="quality" id="quality"></div>
+    </div>
+  </section>
+
+  <!-- 4. CARTE -->
+  <section class="section" id="carte" data-titre="Carte">
+    <div class="reveal">
+      <span class="kicker">Explorer</span>
+      <h2>La part du bio, AAC par AAC</h2>
+    </div>
+    <div class="toolbar reveal">
+      <label class="capsule"><i class="fa-solid fa-magnifying-glass"></i>
+        <input id="search" list="aac-list" placeholder="Rechercher une AAC (nom ou code)"></label>
+      <datalist id="aac-list"></datalist>
+      <label class="capsule"><i class="fa-solid fa-filter"></i>
+        <select id="filtre-cat" aria-label="Catégorie dominante"><option value="">Toutes les cultures dominantes</option></select></label>
+      <span class="muted" id="map-count"></span>
+    </div>
+    <div class="map-layout">
+      <div class="map-wrap">
+        <div id="map" role="region" aria-label="Carte des AAC colorées par part de bio"></div>
+        <div class="legend" id="legend"></div>
+      </div>
+      <aside class="panel" id="panel" aria-live="polite">
+        <div class="empty"><i class="fa-solid fa-hand-pointer"></i>Cliquez sur une AAC de la carte ou du tableau pour afficher son détail.</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 5. CULTURES -->
+  <section class="section" id="cultures" data-titre="Cultures">
+    <div class="split wide-right" style="align-items:start">
+      <div class="reveal">
+        <span class="kicker">Analyse</span>
+        <h2>Quelles cultures, et lesquelles passent au bio&nbsp;?</h2>
+        <p class="lead" id="cultures-texte"></p>
+        <p class="muted">Surfaces dans les AAC, sans double compte des AAC qui se superposent. Les catégories
+          regroupent les codes cultures du RPG et de CartoBio selon une grille commune décrite dans la méthodologie.</p>
+      </div>
+      <div class="viz-card reveal">
+        <div class="viz-head">
+          <div>
+            <h3 id="cultures-titre">Surface agricole par catégorie</h3>
+            <div class="chart-legend"><span><i style="background:var(--accent)"></i>Bio et conversion</span><span><i style="background:var(--conv)"></i>Conventionnel</span></div>
+          </div>
+          <div class="seg-toggle" role="group" aria-label="Unité">
+            <button class="on" data-mode="ha">Hectares</button><button data-mode="part">Part bio</button><button data-mode="table">Tableau</button>
+          </div>
+        </div>
+        <div class="bars" id="bars"></div>
+        <div class="table-view" id="cat-table" hidden></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. CLASSEMENT -->
+  <section class="section" id="classement" data-titre="Classement">
+    <div class="reveal">
+      <span class="kicker">Toutes les AAC</span>
+      <h2>Le tableau complet</h2>
+      <p class="lead">Triez par colonne, cliquez sur une ligne pour la retrouver sur la carte. Les AAC de moins de
+        <b>10 ha</b> de surface agricole sont signalées, leur part de bio étant très sensible à une seule parcelle.</p>
+    </div>
+    <div class="viz-card reveal" style="margin-top:1.6rem">
+      <table id="aac-table" aria-label="Indicateurs par AAC"></table>
+      <div class="pager" id="pager"></div>
+    </div>
+  </section>
+
+  <!-- 7. ÉVOLUTION -->
+  <section class="section" id="evolution" data-titre="Évolution" hidden>
+    <div class="reveal">
+      <span class="kicker">Dans le temps</span>
+      <h2 id="evo-titre">Évolution entre deux millésimes</h2>
+      <p class="lead">Les deux millésimes sont calculés sur le même périmètre d'AAC. Les identifiants de parcelles
+        changent chaque année dans le RPG : la comparaison se fait sur les surfaces, pas parcelle à parcelle.</p>
+    </div>
+    <div class="evo-grid" id="evo-grid"></div>
+  </section>
+
+  <!-- 8. LIMITES -->
+  <section class="section" id="limites" data-titre="Limites" style="min-height:auto">
+    <div class="reveal">
+      <span class="kicker">Lire les chiffres avec prudence</span>
+      <h2>Ce que ces données ne disent pas</h2>
+    </div>
+    <div class="limits reveal">
+      <div><b>Seules les parcelles connues sont comptées.</b> Le RPG ne contient que les surfaces déclarées à la PAC ;
+        CartoBio ajoute des parcelles bio hors PAC, mais les surfaces conventionnelles non déclarées restent invisibles.</div>
+      <div><b>Toutes les AAC ne sont pas encore codifiées.</b> Le Sandre ne diffuse que les AAC validées : certaines
+        aires en cours de délimitation manquent.</div>
+      <div><b>Deux référentiels de cultures.</b> Le RPG et CartoBio utilisent chacun leur nomenclature. La grille commune
+        repose sur des arbitrages métier ; le taux de concordance sur les parcelles appariées est affiché plus haut.</div>
+      <div><b>La géométrie n'est pas parfaite.</b> Les contours bio et RPG ne coïncident jamais exactement. Le chevauchement
+        résiduel entre parcelles conservées est mesuré et reste marginal.</div>
+      <div><b>Une part de bio n'est pas une qualité d'eau.</b> Ces indicateurs décrivent l'occupation agricole, pas les
+        pratiques fines ni les concentrations mesurées au captage.</div>
+      <div><b>Les grandes AAC pèsent lourd.</b> Certaines aires couvrent des bassins versants entiers : les totaux
+        nationaux sont dominés par quelques AAC de surface.</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="cols">
+    <div>
+      <h4>Cultures et bio sur les AAC</h4>
+      <p>Projet de portfolio data, d'Aymeric Maillard. Code, SQL et méthodologie sur
+        <a href="https://github.com/aymericmld/aac_partbio">github.com/aymericmld/aac_partbio</a>.
+        Parcelles exportables pour QGIS en GeoPackage, projection Lambert 93.</p>
+      <p class="num" id="footer-date"></p>
+    </div>
+    <div>
+      <h4>Sources</h4>
+      <p><a id="src-rpg" href="#">RPG — IGN</a><br><a id="src-bio" href="#">CartoBio — Agence Bio</a><br><a id="src-aac" href="#">AAC — Sandre / OFB</a></p>
+    </div>
+    <div>
+      <h4>Licences</h4>
+      <p>Code sous licence MIT. Données soumises aux licences de leurs producteurs.
+        Fond de carte © OpenStreetMap, © CARTO.</p>
+    </div>
+  </div>
+</footer>
+
+<div class="tooltip" id="tooltip" role="tooltip"></div>
+
+<script src="assets/vendor/leaflet/leaflet.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
