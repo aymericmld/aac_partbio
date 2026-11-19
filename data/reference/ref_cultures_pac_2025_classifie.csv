@@ -1,0 +1,145 @@
+code_culture,libelle_culture,groupe,categorie,groupe_reconnu
+ACP,Autre culture pérenne et jachère dans les bananeraies,Divers,Autres,True
+AGR,Agrume,Vergers,Cultures fruitières,True
+AIL,Aïl,Légumes ou fleurs,Maraîchage,True
+ANA,Ananas,Vergers,Cultures fruitières,True
+ARA,Arachide,Autres oléagineux,Céréales et oléoprotéagineux,True
+ART,Artichaut,Légumes ou fleurs,Maraîchage,True
+AVH,Avoine d’hiver,Autres céréales,Céréales et oléoprotéagineux,True
+AVP,Avoine de printemps,Autres céréales,Céréales et oléoprotéagineux,True
+BCA,Banane (hors export),Vergers,Cultures fruitières,True
+BDH,Blé dur d’hiver,Autres céréales,Céréales et oléoprotéagineux,True
+BDP,Blé dur de printemps,Autres céréales,Céréales et oléoprotéagineux,True
+BEF,Banane (export),Vergers,Cultures fruitières,True
+BFS,Bordure le long d'une forêt sans production,Divers,Autres,True
+BOR,Bordure de champ,Divers,Autres,True
+BTA,Bande tampon,Divers,Autres,True
+BTH,Blé tendre d’hiver,Blé tendre,Céréales et oléoprotéagineux,True
+BTN,Betterave,Autres cultures industrielles,Autres,True
+BTP,Blé tendre de printemps,Blé tendre,Céréales et oléoprotéagineux,True
+CAC,Café et cacao,Vergers,Cultures fruitières,True
+CAE,Châtaigneraie entretenue par des porcins ou des petits ruminants,Divers,Autres,True
+CAG,"Autre céréale ou pseudo-céréale secondaire de printemps (alpiste, quinoa, chia, …)",Autres céréales,Céréales et oléoprotéagineux,True
+CAR,Carotte,Légumes ou fleurs,Maraîchage,True
+CBT,Cerise,Vergers,Cultures fruitières,True
+CCN,"Concombre, cornichon et courgette",Légumes ou fleurs,Maraîchage,True
+CEE,Chênaie entretenue par des porcins ou des petits ruminants,Divers,Autres,True
+CEL,Céleri,Légumes ou fleurs,Maraîchage,True
+CHU,Chou,Légumes ou fleurs,Maraîchage,True
+CHV,Chanvre,Plantes à fibres,Autres,True
+CID,Cultures conduites en inter-rangs (bandes de cultures différentes)  - 2 cultures représentant chacune plus de 25  %,Divers,Autres,True
+CIT,Cultures conduites en inter-rangs (bandes de cultures différentes)  - 3 cultures représentant chacune plus de 25  %,Divers,Autres,True
+CML,Cameline,Autres cultures industrielles,Céréales et oléoprotéagineux,True
+CPL,"Mélange multi-espèces (céréales, oléagineux, légumineuses, …) sans graminées prairiales et sans prédominance de légumineuses",Fourrage,Cultures fourragères,True
+CSA,Canne à sucre,Canne à sucre,Autres,True
+CSE,Chanvre sans étiquette conforme,Plantes à fibres,Autres,True
+CSS,Culture sous serre hors sol,Légumes ou fleurs,Maraîchage,True
+CTG,Châtaigne,Fruits à coque,Cultures fruitières,True
+CZH,Colza d’hiver,Colza,Céréales et oléoprotéagineux,True
+CZP,Colza de printemps,Colza,Céréales et oléoprotéagineux,True
+EPE,Epeautre (petit épeautre ou engrain et grand épeautre),Autres céréales,Céréales et oléoprotéagineux,True
+EPI,"Epinard, oseille et bette",Légumes ou fleurs,Maraîchage,True
+FEV,Fève,Protéagineux,Céréales et oléoprotéagineux,True
+FLA,Autre légume ou fruit annuel,Légumes ou fleurs,Maraîchage,True
+FLP,Autre légume ou fruit pérenne (hors petit fruit à baie),Légumes ou fleurs,Maraîchage,True
+FNU,Fenugrec,Autres cultures industrielles,"Plantes à parfum, aromatiques et médicinales",True
+FRA,Fraise (en pleine terre),Légumes ou fleurs,Maraîchage,True
+FVL,Féverole d'hiver,Protéagineux,Céréales et oléoprotéagineux,True
+GES,"Cornille, dolique (y/c lablab), gesse",Fourrage,Cultures fourragères,True
+HBL,Houblon,Autres cultures industrielles,"Plantes à parfum, aromatiques et médicinales",True
+HPC,Horticulture ornementale,Légumes ou fleurs,Maraîchage,True
+JNO,Jachère sanitaire imposée par l'administration,Gel (surfaces gelées sans production),Autres,True
+LAV,Lavande et lavandin,Autres cultures industrielles,"Plantes à parfum, aromatiques et médicinales",True
+LBF,"Laitue, endive et autres salades",Légumes ou fleurs,Maraîchage,True
+LDH,Lupin doux d’hiver,Protéagineux,Céréales et oléoprotéagineux,True
+LDP,Lupin doux de printemps semé avant le 31/05,Protéagineux,Céréales et oléoprotéagineux,True
+LEC,Lentille,Légumineuses à grains,Céréales et oléoprotéagineux,True
+LIF,Lin fibres,Plantes à fibres,Autres,True
+LIH,Lin non textile d’hiver,Autres oléagineux,Céréales et oléoprotéagineux,True
+LIP,Lin non textile de printemps,Autres oléagineux,Céréales et oléoprotéagineux,True
+LOT,"Lotier, minette",Fourrage,Cultures fourragères,True
+LUZ,Autre luzerne,Fourrage,Cultures fourragères,True
+MCR,Mélange de céréales ou pseudo-céréales d'hiver entre elles,Autres céréales,Céréales et oléoprotéagineux,True
+MID,Maïs doux,Maïs grain et ensilage,Céréales et oléoprotéagineux,True
+MIS,Maïs (hors maïs doux),Maïs grain et ensilage,Céréales et oléoprotéagineux,True
+MLG,Mélange de légumineuses prépondérantes et de graminées fourragères de 5 ans ou moins,Fourrage,Cultures fourragères,True
+MLO,Melon et pastèque,Légumes ou fleurs,Maraîchage,True
+MLT,Millet,Autres céréales,Céréales et oléoprotéagineux,True
+MOH,Moha,Fourrage,Cultures fourragères,True
+MOT,Moutarde d'hiver,Autres cultures industrielles,Céréales et oléoprotéagineux,True
+MPC,Mélange de protéagineux (pois et/ou lupin et/ou féverole) prépondérants semés avant le 31/05 et de céréales,Protéagineux,Céréales et oléoprotéagineux,True
+MRS,Marais salants,Divers,Autres,True
+NOS,Noisette,Fruits à coque,Cultures fruitières,True
+NOX,Noix (y compris noix de coco),Fruits à coque,Cultures fruitières,True
+NVT,"Navet, rutabaga et autres légumes racines (hors carotte, radis, betterave)",Légumes ou fleurs,Maraîchage,True
+OAG,"Autres oléagineux ou mélange d'oléagineux de printemps et d'été (dont moutarde ou navette d'été, sésame et nyger)",Autres oléagineux,Céréales et oléoprotéagineux,True
+OEI,Oeillette (pavot),Autres oléagineux,Céréales et oléoprotéagineux,True
+OHR,Autres oléagineux ou mélange d'oléagineux d'hiver (dont navette d'hiver),Autres oléagineux,Céréales et oléoprotéagineux,True
+OIG,Oignon et échalote,Légumes ou fleurs,Maraîchage,True
+OLI,Olive,Oliviers,Cultures fruitières,True
+ORH,Orge d'hiver,Orge,Céréales et oléoprotéagineux,True
+ORP,Orge de printemps,Orge,Céréales et oléoprotéagineux,True
+PAG,Autre légumineuse à graines ou fourragères,Protéagineux,Céréales et oléoprotéagineux,True
+PCH,Pois chiche,Légumineuses à grains,Céréales et oléoprotéagineux,True
+PEP,Pépinière (plants laissés en terre plus d’un an),Divers,Autres,True
+PFR,Petit fruit à baie (hors fraise),Vergers,Cultures fruitières,True
+PHI,Pois protéagineux d'hiver (alimentation animale),Protéagineux,Céréales et oléoprotéagineux,True
+POR,Poireau,Légumes ou fleurs,Maraîchage,True
+POT,"Potiron, citrouille et autres courges",Légumes ou fleurs,Maraîchage,True
+PPH,Prairie de 6 ans ou plus (couvert herbacé),Prairies permanentes,Prairies,True
+PPP,Plantes médicinales pérennes (arbres ou arbustes) sauf cassis,Autres cultures industrielles,"Plantes à parfum, aromatiques et médicinales",True
+PPR,Pois protéagineux de printemps (alimentation animale),Protéagineux,Céréales et oléoprotéagineux,True
+PRU,"Prune (y compris mirabelle, quetsche, reine-claude, …)",Vergers,Cultures fruitières,True
+PSL,Persil,Autres cultures industrielles,"Plantes à parfum, aromatiques et médicinales",True
+PTC,Pomme de terre,Légumes ou fleurs,Maraîchage,True
+PTR,Prairie temporaire de moins de 5 ans et autre mélange avec graminées,Prairies temporaires,Prairies,True
+PVP,"Poivron, piment et aubergine",Légumes ou fleurs,Maraîchage,True
+PVT,"Pêche (y compris nectarine, brugnon)",Vergers,Cultures fruitières,True
+PWT,Poire,Vergers,Cultures fruitières,True
+RDI,Radis,Légumes ou fleurs,Maraîchage,True
+RIZ,Riz,Riz,Céréales et oléoprotéagineux,True
+SAI,Sainfoin,Fourrage,Cultures fourragères,True
+SBO,Boisement aidé d'une surface agricole,Divers,Autres,True
+SGH,Seigle d’hiver,Autres céréales,Céréales et oléoprotéagineux,True
+SGP,Seigle de printemps,Autres céréales,Céréales et oléoprotéagineux,True
+SNE,"Surface agricole temporairement non admissible, autre que surface pâturable",Divers,Autres,True
+SOG,Sorgho,Autres céréales,Céréales et oléoprotéagineux,True
+SOJ,Soja,Autres oléagineux,Céréales et oléoprotéagineux,True
+SPH,Prairie avec herbe prédominante et ressources fourragères ligneuses présentes,Estives et landes,Prairies,True
+SPL,Surface pastorale - Ressources fourragères ligneuses prédominantes,Estives et landes,Prairies,True
+SRS,Sarrasin,Autres céréales,Céréales et oléoprotéagineux,True
+TAB,Tabac,Autres cultures industrielles,Autres,True
+TBT,Tubercule tropical,Divers,Autres,True
+TCR,Taillis à courte rotation,Divers,Autres,True
+TOM,Tomate (en pleine terre),Légumes ou fleurs,Maraîchage,True
+TRE,Autre trèfle,Fourrage,Cultures fourragères,True
+TRN,Tournesol,Tournesol,Céréales et oléoprotéagineux,True
+TRU,Truffière (chênaie de plants mycorhizés),Divers,Autres,True
+TTH,Triticale d’hiver,Autres céréales,Céréales et oléoprotéagineux,True
+TTP,Triticale de printemps,Autres céréales,Céréales et oléoprotéagineux,True
+VES,"Vesce, mélilot, jarosse, serradelle",Fourrage,Cultures fourragères,True
+VNL,Vanille,Autres cultures industrielles,"Plantes à parfum, aromatiques et médicinales",True
+VRC,Vigne (sauf vigne rouge),Vignes,Vignes,True
+VRG,Autre verger (y compris verger DOM),Vergers,Cultures fruitières,True
+MLC,Mélange multi-espèces avec légumineuses fourragères prépondérantes sans graminées prairiales,Fourrage,Cultures fourragères,True
+MLF,Mélange de légumineuses à graines ou fourragères pures,Fourrage,Cultures fourragères,True
+CAH,Autre céréale ou pseudo-céréale secondaire d'hiver,Autres céréales,Céréales et oléoprotéagineux,True
+MCS,Mélange de céréales ou pseudo-céréales de printemps entre elles,Autres céréales,Céréales et oléoprotéagineux,True
+FVP,Féverole de printemps,Protéagineux,Céréales et oléoprotéagineux,True
+PHS,Pois et haricot secs (alimentation humaine),Protéagineux,Céréales et oléoprotéagineux,True
+PHF,Pois et haricot frais (alimentation humaine),Protéagineux,Céréales et oléoprotéagineux,True
+MDI,Maraîchage diversifié (plusieurs espèces de fruits et légumes majoritairement non pérennes),Légumes ou fleurs,Maraîchage,True
+SHD,Surfaces hautement diversifiées (DOM),Divers,Autres,True
+GRA,Graminée pure exclusivement pour gazon ou pour production de semences certifiées,Divers,Autres,True
+JAC,Jachère (terre arable),Gel (surfaces gelées sans production),Autres,True
+ARP,Plante aromatique pérenne non arbustive ou arborée autre que la vanille,Autres cultures industrielles,"Plantes à parfum, aromatiques et médicinales",True
+AAR,Plantes aromatiques herbacées non pérennes (< 5 ans) autres que persil,Autres cultures industrielles,"Plantes à parfum, aromatiques et médicinales",True
+PRF,Plantes à parfum pérennes autres que lavande et lavandin,Autres cultures industrielles,"Plantes à parfum, aromatiques et médicinales",True
+AME,Plantes médicinales et à parfum non pérennes (< 5 ans),Autres cultures industrielles,"Plantes à parfum, aromatiques et médicinales",True
+PME,Plantes médicinales pérennes (autres que arbres),Autres cultures industrielles,"Plantes à parfum, aromatiques et médicinales",True
+AFG,"Autre plante fourragère annuelle (ni légumineuse, ni graminée, ni céréale, ni oléagineux)",Fourrage,Cultures fourragères,True
+MSW,"Culture pérenne à forte biomasse (miscanthus, switchgrass, silphie, canne fourragère, …)",Divers,Autres,True
+SAG,Roselière (récolte de sagnes),Divers,Autres,True
+SNU,"Parc d'élevage de monogastriques avec couvert dégradé, voire sol nu",Divers,Autres,True
+SIN,Surface pastorale ou parcours non utilisé l'année en cours,Divers,Autres,True
+PEV,Pépinière (plants laissés en terre moins d’un an),Divers,Autres,True

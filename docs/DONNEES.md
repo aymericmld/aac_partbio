@@ -20,7 +20,9 @@ data/raw/
 
 **Ce qui change en 2025 (RPG 4.0) :** l'IGN a publié le millésime 2025 en octobre 2026. Les informations « constatée bio », prairies permanentes, grandes catégories et IAE ne sont plus des couches séparées : elles deviennent des attributs de la couche Parcelles. Les cultures dérobées ne sont plus diffusées. Le pipeline détecte la colonne bio parmi les noms listés dans `src/aac_partbio/config.py` (`COLONNES_RPG["bio"]`).
 
-> **À vérifier au premier chargement :** le nom exact de cet attribut n'a pas pu être confirmé avant la rédaction (descriptif `DC_DL_RPG_4-0.pdf`). Lancer `ogrinfo -so data/raw/2025/rpg_parcelles.gpkg` et, si la colonne bio porte un autre nom, l'ajouter en tête de la liste. Le rapport qualité affiche les valeurs trouvées dans cette colonne pour vérifier qu'elles sont bien interprétées.
+Dans le GeoPackage 2025, la couche `RPG_Parcelles` contient les champs `id_parcel`, `surf_parc`, `cat_cult_p`, `code_cultu`, `code_group`, `precision` et quatre booléens : `gcp`, `pp`, `bio` et `iae`. Le rapport qualité affiche les valeurs trouvées dans la colonne bio pour vérifier qu'elles sont bien interprétées.
+
+Le référentiel `REF_CULTURES_GROUPES_CULTURES` utilisé pour 2025 est identique à celui de 2024. Un seul code CartoBio, couvrant 3 ha, reste sans catégorie.
 
 ## 2. Parcelles bio, Agence Bio
 
@@ -38,6 +40,10 @@ Le jeu « Parcelles en Agriculture Biologique déclarées à la PAC » de l'Agen
 - Seules les AAC validées par le Sandre sont diffusées ; les aires en cours de délimitation sont visibles sur [aires-captages.fr](https://aires-captages.fr).
 
 Le même référentiel d'AAC s'applique à tous les millésimes traités : après une nouvelle extraction, relancer aussi le millésime précédent pour comparer les années sur le même périmètre.
+
+## Pré-filtrage
+
+Sur une machine modeste, `python -m aac_partbio.prefiltre` réduit le RPG et CartoBio aux parcelles qui touchent l'emprise des AAC, en lisant les GeoPackage carreau par carreau grâce à leur index spatial. Les sorties sont découpées en fichiers `rpg_parcelles_NN.gpkg` et `cartobio_NN.gpkg`, que `charger` reconnaît. Les AAC situées hors de l'étendue du RPG (outre-mer, pour le fichier FXX) sont écartées. En 2025, il reste 1,34 million de parcelles RPG sur 9,7 millions, et 128 000 parcelles CartoBio sur 1,24 million.
 
 ## Volumétrie
 

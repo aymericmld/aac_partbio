@@ -66,7 +66,8 @@ SELECT :annee, a.cdaac, a.nom, a.surface_ha,
        COALESCE(s.sau_conversion_ha, 0),
        COALESCE(s.sau_bio_pac_seul_ha, 0),
        COALESCE(s.sau_ha, 0) / NULLIF(a.surface_ha, 0),
-       s.sau_bio_ha / NULLIF(s.sau_ha, 0),
+       -- Une AAC agricole sans parcelle bio a une part de 0, pas une part inconnue.
+       COALESCE(s.sau_bio_ha, 0) / NULLIF(s.sau_ha, 0),
        d.categorie,
        d.surface_ha / NULLIF(s.sau_ha, 0)
 FROM :"schema".aac a

@@ -10,7 +10,14 @@ Ce projet croise trois sources ouvertes dans PostgreSQL/PostGIS : le Registre pa
 | [Méthodologie détaillée](docs/METHODOLOGIE.md) | Classification, appariement, contrôles et limites |
 | [Récupérer les données](docs/DONNEES.md) | Où télécharger chaque source et où la déposer |
 
-> **État du projet :** la chaîne est mise à jour pour le **RPG 2025** (version 4.0, publiée en octobre 2026) et testée de bout en bout sur un jeu synthétique. La page publiée affiche ces données de démonstration, signalées par un bandeau, jusqu'à la première exécution sur les sources officielles.
+> **État du projet :** résultats calculés le 19 novembre 2026 sur le **RPG 2025** (version 4.0), les parcelles CartoBio 2025 et les 1 590 AAC de métropole diffusées par le Sandre.
+
+## En bref
+
+- **7,8 %** de la surface agricole des AAC est en bio ou en conversion, soit 257 000 ha sur 3,28 millions.
+- À base égale, le RPG constate **7,7 %** de bio sur les parcelles qui touchent une AAC, contre **10,4 %** sur l'ensemble de la métropole.
+- Les **céréales et oléoprotéagineux** couvrent 61 % de la surface agricole des AAC, mais seulement 4,4 % en bio.
+- Une AAC sur quatre n'a **aucune parcelle bio** ; la moitié en compte moins de 3,6 %.
 
 ## Ce qui a changé depuis la version 2024
 
@@ -44,17 +51,57 @@ flowchart LR
 
 ## Les résultats
 
-Les indicateurs sont produits dans `data/processed/` et sur la [page de restitution](https://aymericmld.github.io/aac_partbio/) :
+### Des AAC très agricoles, moins bio que la moyenne
+
+Les 1 590 AAC couvrent 5,6 millions d'hectares, une fois retirées les superpositions. Les parcelles agricoles en occupent 3,28 millions, soit 58 %. Sur cette surface, 257 000 ha sont en bio ou en conversion : 7,8 %. Environ 229 000 ha sont certifiés AB, 18 000 ha en conversion et 10 000 ha sont constatés bio dans le RPG sans figurer dans CartoBio.
+
+La comparaison avec le reste du territoire se fait à base égale, sur l'attribut « constatée bio » du RPG 2025 : 7,7 % sur les parcelles qui touchent une AAC, contre 10,4 % sur les 27,8 millions d'hectares du RPG métropolitain. Les AAC sont donc moins engagées en bio que la moyenne, alors que l'enjeu de qualité de l'eau y est le plus direct.
+
+### Les grandes cultures dominent et restent peu converties
+
+| Catégorie | Surface dans les AAC | Part du total | Part bio |
+|---|---|---|---|
+| Céréales et oléoprotéagineux | 1 987 000 ha | 61 % | 4,4 % |
+| Prairies | 711 000 ha | 22 % | 11,6 % |
+| Autres | 273 000 ha | 8 % | 10,8 % |
+| Vignes | 121 000 ha | 4 % | 11,1 % |
+| Cultures fourragères | 115 000 ha | 4 % | 31,0 % |
+| Maraîchage | 52 000 ha | 2 % | 7,4 % |
+| Cultures fruitières | 12 000 ha | < 1 % | 33,8 % |
+| Plantes à parfum, aromatiques et médicinales | 5 000 ha | < 1 % | 24,5 % |
+
+Les céréales et oléoprotéagineux dominent dans 1 175 AAC sur 1 590. C'est aussi la catégorie la moins convertie : le principal gisement de surface pour le bio se trouve là.
+
+### De fortes disparités entre AAC
+
+Parmi les 1 522 AAC qui comptent au moins 10 ha agricoles :
+
+- 385, soit une sur quatre, n'ont aucune parcelle bio ;
+- la part bio médiane est de 3,6 % ;
+- 461 ont au moins 10 % de bio, et 50 au moins 50 %.
+
+Quelques très grandes AAC, qui couvrent des bassins versants entiers, pèsent lourd : les dix AAC les plus agricoles rassemblent environ un tiers de la surface agricole additionnée AAC par AAC.
+
+### Qualité du croisement
+
+| Indicateur | Valeur |
+|---|---|
+| Parcelles bio retrouvées dans le RPG | 96,3 % |
+| Chevauchement résiduel entre parcelles conservées | 304 ha, soit 0,01 % de la surface |
+| Surface sans catégorie | 3 ha |
+| Catégorie identique entre CartoBio et le RPG sur les parcelles appariées | 85,7 % de la surface |
+
+Les règles de classement codées reproduisent exactement les fichiers classés à la main pour la version 2024 : 144 codes PAC sur 144 et 285 codes CPFBIO sur 285. L'écart de concordance vient donc de la grille elle-même. Deux cas expliquent l'essentiel : les surfaces pastorales collectives, classées « Autres » côté CPFBIO mais « Prairies » côté PAC (environ 18 000 ha), et les mélanges de céréales ou de légumineuses, classés en céréales dans CPFBIO et en fourrage dans le RPG. Aligner ces deux cas est la prochaine amélioration de la grille.
+
+### Fichiers produits
 
 | Fichier | Contenu |
 |---|---|
-| `synthese_aac.csv` | Une ligne par AAC et millésime : surface agricole, surfaces bio, AB et en conversion, part bio, culture dominante |
-| `synthese_categorie.csv` | Surface agricole et bio par catégorie de culture |
-| `synthese_nationale.csv` | Indicateurs clés par millésime |
-| `rapport_qualite_AAAA.json` | Taux d'appariement, chevauchement résiduel, concordance des catégories, codes non classés |
-| `parcel_aac_AAAA.gpkg` | Parcelles rattachées aux AAC, pour QGIS (option `--gpkg`, non versionné) |
-
-Ils seront commentés ici après l'exécution sur les données 2025.
+| [`synthese_aac.csv`](data/processed/synthese_aac.csv) | Une ligne par AAC : surface agricole, surfaces bio, AB et en conversion, part bio, culture dominante |
+| [`synthese_categorie.csv`](data/processed/synthese_categorie.csv) | Surface agricole et bio par catégorie |
+| [`synthese_nationale.csv`](data/processed/synthese_nationale.csv) | Indicateurs clés du millésime |
+| [`rapport_qualite_2025.json`](data/processed/rapport_qualite_2025.json) | Diagnostics détaillés du croisement |
+| `parcel_aac_2025.gpkg` | Parcelles rattachées aux AAC, pour QGIS (option `--gpkg`, non versionné) |
 
 ## Reproduire
 
@@ -82,6 +129,13 @@ Pour comparer deux millésimes sur le même périmètre, traiter aussi 2024 sans
 
 ```bash
 .venv/bin/python -m aac_partbio tout --annee 2024 --sans-aac
+```
+
+Sur une machine modeste, le RPG complet (plus de 6 Go) peut d'abord être réduit aux parcelles proches des AAC, sans PostgreSQL. La commande calcule aussi la part bio du RPG complet, reprise ensuite dans les indicateurs :
+
+```bash
+.venv/bin/pip install -e '.[prefiltre]'
+.venv/bin/python -m aac_partbio.prefiltre --rpg RPG_Parcelles.gpkg --bio cartobio.gpkg --aac AAC.gpkg --sortie data/raw/2025
 ```
 
 Pour tester la chaîne sans télécharger les sources, le jeu synthétique génère deux millésimes et les traite. Il écrit dans son propre schéma pour ne pas mélanger ses tables aux vraies, et ses sorties vont dans `data/processed/demo/` :
