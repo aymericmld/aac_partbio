@@ -38,6 +38,10 @@ def _arrondir(valeur, chiffres: int = 4):
     return round(float(valeur), chiffres)
 
 
+def _texte(valeur):
+    return None if valeur is None or pd.isna(valeur) else str(valeur)
+
+
 def exporter_geojson(annee: int, precedente: int | None) -> int:
     """AAC simplifiées en WGS 84 avec leurs indicateurs, pour la carte du site."""
     df = db.requete(
@@ -72,7 +76,7 @@ def exporter_geojson(annee: int, precedente: int | None) -> int:
     for ligne in df.itertuples(index=False):
         proprietes = {
             "cdaac": ligne.cdaac,
-            "nom": ligne.nom,
+            "nom": _texte(ligne.nom),
             "surface_aac_ha": _arrondir(ligne.surface_aac_ha, 1),
             "sau_ha": _arrondir(ligne.sau_ha, 1),
             "sau_bio_ha": _arrondir(ligne.sau_bio_ha, 1),
@@ -81,7 +85,7 @@ def exporter_geojson(annee: int, precedente: int | None) -> int:
             "part_bio": _arrondir(ligne.part_bio),
             "part_bio_prec": _arrondir(ligne.part_bio_prec),
             "part_sau": _arrondir(ligne.part_sau),
-            "categorie_dominante": ligne.categorie_dominante,
+            "categorie_dominante": _texte(ligne.categorie_dominante),
             "nb_parcelles": int(ligne.nb_parcelles),
             "categories": ligne.categories or {},
         }
@@ -90,7 +94,9 @@ def exporter_geojson(annee: int, precedente: int | None) -> int:
         )
     SITE_DATA.mkdir(parents=True, exist_ok=True)
     collection = {"type": "FeatureCollection", "annee": annee, "features": entites}
-    (SITE_DATA / "aac.geojson").write_text(json.dumps(collection, ensure_ascii=False))
+    (SITE_DATA / "aac.geojson").write_text(
+        json.dumps(collection, ensure_ascii=False, allow_nan=False)
+    )
     return len(entites)
 
 
@@ -150,7 +156,7 @@ def exporter_site(demo: bool = False) -> None:
     }
     SITE_DATA.mkdir(parents=True, exist_ok=True)
     (SITE_DATA / "site.json").write_text(
-        json.dumps(site, ensure_ascii=False, indent=1, default=str)
+        json.dumps(site, ensure_ascii=False, indent=1, default=str, allow_nan=False)
     )
     nb = exporter_geojson(derniere, precedente)
     print(f"site : {len(annees)} millésime(s), {nb} AAC dans aac.geojson")

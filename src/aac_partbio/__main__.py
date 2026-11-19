@@ -54,6 +54,7 @@ def main(argv: list[str] | None = None) -> None:
         chargement.charger(args.annee, _sources(args), avec_aac=not args.sans_aac)
     if args.etape in ("traiter", "tout"):
         traitement.traiter(args.annee, depuis=args.depuis)
+        chargement.appliquer_stats_nationales(args.annee, _sources(args))
     if args.etape in ("controler", "tout"):
         qualite.controler(args.annee)
     if args.etape in ("exporter", "tout"):

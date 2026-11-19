@@ -1,0 +1,132 @@
+{
+  "annee": 2025,
+  "colonnes": {
+    "rpg_id": "id_parcel",
+    "rpg_culture": "code_cultu",
+    "rpg_surface": "surf_parc",
+    "rpg_bio": "bio",
+    "aac_id": "cdaac",
+    "aac_nom": "nomdeaacusage",
+    "aac_noms": [
+      "nomdeaacusage",
+      "nomdeaacadministratif"
+    ]
+  },
+  "parcelles_par_source": [
+    {
+      "source": "cartobio_hors_rpg",
+      "parcelles": 4741,
+      "surface_ha": "3533.7"
+    },
+    {
+      "source": "cartobio_rpg",
+      "parcelles": 123091,
+      "surface_ha": "314391.6"
+    },
+    {
+      "source": "rpg",
+      "parcelles": 1226393,
+      "surface_ha": "3890478.4"
+    }
+  ],
+  "taux_appariement_bio": 0.9629122598410413,
+  "chevauchement_residuel_ha": 303.9601324227664,
+  "part_chevauchement_residuel": 9.276407843728817e-05,
+  "part_sau_non_classee": 5.16097366065059e-07,
+  "concordance_categories": 0.8569436246188503,
+  "discordances_categories": [
+    {
+      "categorie_rpg": "Prairies",
+      "categorie_cartobio": "Autres",
+      "surface_ha": "23564.1"
+    },
+    {
+      "categorie_rpg": "Cultures fourragères",
+      "categorie_cartobio": "Céréales et oléoprotéagineux",
+      "surface_ha": "11796.3"
+    },
+    {
+      "categorie_rpg": "Céréales et oléoprotéagineux",
+      "categorie_cartobio": "Cultures fourragères",
+      "surface_ha": "2793.3"
+    },
+    {
+      "categorie_rpg": "Autres",
+      "categorie_cartobio": "Prairies",
+      "surface_ha": "1073.0"
+    },
+    {
+      "categorie_rpg": "Cultures fourragères",
+      "categorie_cartobio": "Prairies",
+      "surface_ha": "884.5"
+    },
+    {
+      "categorie_rpg": "Céréales et oléoprotéagineux",
+      "categorie_cartobio": "Autres",
+      "surface_ha": "844.0"
+    },
+    {
+      "categorie_rpg": "Céréales et oléoprotéagineux",
+      "categorie_cartobio": "Prairies",
+      "surface_ha": "439.2"
+    },
+    {
+      "categorie_rpg": "Autres",
+      "categorie_cartobio": "Céréales et oléoprotéagineux",
+      "surface_ha": "406.6"
+    },
+    {
+      "categorie_rpg": "Prairies",
+      "categorie_cartobio": "Céréales et oléoprotéagineux",
+      "surface_ha": "404.5"
+    },
+    {
+      "categorie_rpg": "Autres",
+      "categorie_cartobio": "Maraîchage",
+      "surface_ha": "360.4"
+    },
+    {
+      "categorie_rpg": "Autres",
+      "categorie_cartobio": "Cultures fourragères",
+      "surface_ha": "331.4"
+    },
+    {
+      "categorie_rpg": "Prairies",
+      "categorie_cartobio": "Cultures fourragères",
+      "surface_ha": "314.7"
+    },
+    {
+      "categorie_rpg": "Céréales et oléoprotéagineux",
+      "categorie_cartobio": "Maraîchage",
+      "surface_ha": "252.6"
+    },
+    {
+      "categorie_rpg": "Cultures fourragères",
+      "categorie_cartobio": "Autres",
+      "surface_ha": "229.7"
+    },
+    {
+      "categorie_rpg": "Autres",
+      "categorie_cartobio": "Vignes",
+      "surface_ha": "211.3"
+    }
+  ],
+  "codes_non_classes": [
+    {
+      "source": "cartobio_rpg",
+      "code_culture": "01.19.10",
+      "parcelles": 5,
+      "surface_ha": "2.8"
+    }
+  ],
+  "valeurs_colonne_bio_rpg": [
+    {
+      "valeur": "false",
+      "parcelles": 1228067
+    },
+    {
+      "valeur": "true",
+      "parcelles": 116387
+    }
+  ]
+}

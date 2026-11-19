@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import subprocess
 from pathlib import Path
 
@@ -29,10 +30,27 @@ def expression_bio(colonne: str | None, alias: str = "ign") -> str:
     return f'(lower(trim({alias}."{colonne}"::text)) IN ({valeurs}))'
 
 
+def morceaux(fichier: Path) -> list[Path]:
+    """Le fichier lui-même, ou ses morceaux `<nom>_NN.gpkg` produits par prefiltre."""
+    if fichier.exists():
+        return [fichier]
+    parties = sorted(fichier.parent.glob(f"{fichier.stem}_[0-9][0-9]{fichier.suffix}"))
+    if not parties:
+        raise FileNotFoundError(f"{fichier} introuvable : voir docs/DONNEES.md")
+    return parties
+
+
 def ogr2ogr(fichier: Path, table: str, couche: str | None = None) -> None:
     """Charge un fichier vectoriel en Lambert 93, géométrie `geom`, clé `fid`."""
-    if not fichier.exists():
-        raise FileNotFoundError(f"{fichier} introuvable : voir docs/DONNEES.md")
+    parties = morceaux(fichier)
+    if len(parties) > 1:
+        for i, partie in enumerate(parties):
+            _ogr2ogr(partie, table, couche, ajout=i > 0)
+        return
+    _ogr2ogr(parties[0], table, couche, ajout=False)
+
+
+def _ogr2ogr(fichier: Path, table: str, couche: str | None, ajout: bool) -> None:
     db.executer_requete_simple("CREATE EXTENSION IF NOT EXISTS postgis")
     db.executer_requete_simple(f'CREATE SCHEMA IF NOT EXISTS "{SCHEMA}"')
     commande = [
@@ -53,7 +71,7 @@ def ogr2ogr(fichier: Path, table: str, couche: str | None = None) -> None:
         "FID=fid",
         "-lco",
         "SPATIAL_INDEX=GIST",
-        "-overwrite",
+        "-append" if ajout else "-overwrite",
         "-progress",
         "--config",
         "PG_USE_COPY",
@@ -108,6 +126,24 @@ def charger(annee: int, sources: Sources, avec_aac: bool = True) -> None:
     print("référentiels :", charger_referentiels(sources, annee))
 
 
+def appliquer_stats_nationales(annee: int, sources: Sources) -> None:
+    """Remplace la part bio « France » si le RPG chargé a été pré-filtré.
+
+    Le pré-filtrage ne garde que les parcelles proches des AAC : la part bio du
+    fichier chargé ne représente plus le territoire. prefiltre a calculé la
+    vraie valeur sur le RPG complet dans rpg_stats_nationales.json.
+    """
+    chemin = sources.rpg.parent / "rpg_stats_nationales.json"
+    if not chemin.exists():
+        return
+    stats = json.loads(chemin.read_text())
+    db.executer_requete_simple(
+        f'UPDATE "{SCHEMA}".synthese_nationale SET part_bio_pac_france = '
+        f"{float(stats['part_bio_pac_france'])} WHERE annee = {int(annee)}"
+    )
+    print(f"part bio du RPG complet reprise de {chemin.name} : {stats['part_bio_pac_france']:.2%}")
+
+
 def detecter(annee: int) -> dict[str, str | None]:
     """Colonnes à utiliser dans les tables chargées pour ce millésime."""
     rpg = db.colonnes(f"src_rpg_{annee}")
@@ -117,6 +153,10 @@ def detecter(annee: int) -> dict[str, str | None]:
         raise RuntimeError(f"sources {annee} absentes du schéma {SCHEMA} : lancer `charger`")
     choix = {f"rpg_{k}": choisir_colonne(rpg, v) for k, v in COLONNES_RPG.items()}
     choix.update({f"aac_{k}": choisir_colonne(aac, v) for k, v in COLONNES_AAC.items()})
+    # Plusieurs champs de nom peuvent coexister (usage, administratif) : on les
+    # combine pour qu'un nom vide dans l'un soit complété par l'autre.
+    index = {c.lower(): c for c in aac}
+    choix["aac_noms"] = [index[c] for c in COLONNES_AAC["nom"] if c in index]
     obligatoires = ["rpg_id", "rpg_culture", "rpg_surface", "aac_id"]
     manquantes = [k for k in obligatoires if choix[k] is None]
     for colonne in ("fid", "culture", "convers", "surface"):

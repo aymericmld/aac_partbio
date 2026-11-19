@@ -17,7 +17,12 @@ ETAPES = (
 
 
 def variables(annee: int, colonnes: dict[str, str | None]) -> dict[str, object]:
-    nom = colonnes["aac_nom"]
+    noms = colonnes.get("aac_noms") or ([colonnes["aac_nom"]] if colonnes["aac_nom"] else [])
+    nom_expr = (
+        "COALESCE(" + ", ".join(f"NULLIF(trim(src.\"{n}\"::text), '')" for n in noms) + ")"
+        if noms
+        else "NULL::text"
+    )
     return {
         "schema": SCHEMA,
         "annee": annee,
@@ -35,7 +40,7 @@ def variables(annee: int, colonnes: dict[str, str | None]) -> dict[str, object]:
         "rpg_surface": colonnes["rpg_surface"],
         "rpg_bio_expr": chargement.expression_bio(colonnes["rpg_bio"]),
         "aac_id": colonnes["aac_id"],
-        "aac_nom_expr": f'src."{nom}"::text' if nom else "NULL::text",
+        "aac_nom_expr": nom_expr,
     }
 
 

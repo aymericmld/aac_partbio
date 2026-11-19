@@ -1,0 +1,286 @@
+code_production,lbl_production,groupe,sous_groupe,categorie,groupe_reconnu
+01.11.00.1,"Semences de céréales, légumineuses et oléagineux",Autres surfaces,Semences et plants,Céréales et oléoprotéagineux,True
+01.12.10.1,Semences de riz,Autres surfaces,Semences et plants,Céréales et oléoprotéagineux,True
+01.13.6,Plants et semences potagers,Autres surfaces,Semences et plants,Maraîchage,True
+01.13.71,Betterave à sucre,Autres surfaces,Cultures industrielles,Autres,True
+01.13.72,Semences de betterave à sucre,Autres surfaces,Semences et plants,Autres,True
+01.14.1,Canne à sucre,Autres surfaces,Cultures industrielles,Autres,True
+01.15.1,Tabac brut,Autres surfaces,Cultures industrielles,Autres,True
+01.16.11,Coton,Autres surfaces,Cultures industrielles,Autres,True
+01.16.19.1,Lin textile,Autres surfaces,Cultures industrielles,Autres,True
+01.16.19.2,Chanvre textile,Autres surfaces,Cultures industrielles,Autres,True
+01.16.19.9,Autre plante textile,Autres surfaces,Cultures industrielles,Autres,True
+01.19.21,Fleurs,Autres surfaces,Autres productions végétales,Autres,True
+01.19.22,Semences florales,Autres surfaces,Semences et plants,Autres,True
+01.19.31,Semences de plantes fourragères,Autres surfaces,Semences et plants,Cultures fourragères,True
+01.25.2,Semences fruitières,Autres surfaces,Semences et plants,Cultures fruitières,True
+01.29.00.91,Miscanthus,Autres surfaces,Autres productions végétales,Autres,True
+01.29.1,Caoutchouc,Autres surfaces,Autres productions végétales,Autres,True
+01.29.2,Arbre de Noël,Autres surfaces,Autres productions végétales,Autres,True
+01.30.1,Plants,Autres surfaces,Semences et plants,Autres,True
+01.95.11,"Bois, lande, garrigue ou maquis pâturé",Autres surfaces,Zone boisée et cueillette sauvage,Autres,True
+01.95.19,"Bois, lande, garrigue ou maquis non pâturé",Autres surfaces,Zone boisée et cueillette sauvage,Autres,True
+01.95.21,Zone de cueillette de baies sauvages,Autres surfaces,Zone boisée et cueillette sauvage,Autres,True
+01.95.22,Zone de cueillette de PPAM,Autres surfaces,Zone boisée et cueillette sauvage,"Plantes à parfum, aromatiques et médicinales",True
+01.95.23,Zone de cueillette de champignons sauvages,Autres surfaces,Zone boisée et cueillette sauvage,Autres,True
+01.95.24,Autre zone de cueillette sauvage,Autres surfaces,Zone boisée et cueillette sauvage,Autres,True
+01.95.25,Zone de cueillette de fruits à coque,Autres surfaces,Zone boisée et cueillette sauvage,Autres,True
+02.10.11,Plants d'arbres forestiers,Autres surfaces,Zone boisée et cueillette sauvage,Autres,True
+02.10.12,Semences d'arbres forestiers,Autres surfaces,Zone boisée et cueillette sauvage,Autres,True
+02.10.3,Arbre forestier,Autres surfaces,Zone boisée et cueillette sauvage,Autres,True
+01.95.4,Surface pastorale collective,Autres surfaces,Zone boisée et cueillette sauvage,Autres,True
+01.91,Jachère,Autres surfaces,Surfaces non productives,Autres,True
+01.92,Gel fixe,Autres surfaces,Surfaces non productives,Autres,True
+01.93,Engrais vert,Autres surfaces,Surfaces non productives,Autres,True
+01.99,Autre surface non agricole,Autres surfaces,Surfaces non productives,Autres,True
+01.99.10.1,Bande tampon ou fleurie,Autres surfaces,Surfaces non productives,Autres,True
+01.99.10.2,Bordure de champ ou de forêt,Autres surfaces,Surfaces non productives,Autres,True
+01.99.10.3,Haie et bosquet,Autres surfaces,Surfaces non productives,Autres,True
+03.00.63,Zone de cueillette d'algues sauvages,Autres surfaces,Aquaculture et récolte de sel,Autres,True
+03.00.64.1,Spiruline,Autres surfaces,Aquaculture et récolte de sel,Autres,True
+03.00.64.9,Autres algues de culture,Autres surfaces,Aquaculture et récolte de sel,Autres,True
+08.93.1,Marais salant,Autres surfaces,Aquaculture et récolte de sel,Autres,True
+01.22.11,Avocat,Fruits,Fruits oléagineux,Cultures fruitières,True
+01.22.12,Banane,Fruits,Fruits tropicaux et subtropicaux,Cultures fruitières,True
+01.22.13,Datte,Fruits,Fruits tropicaux et subtropicaux,Cultures fruitières,True
+01.22.14,Figue,Fruits,Fruits tropicaux et subtropicaux,Cultures fruitières,True
+01.22.19.1,Ananas,Fruits,Fruits tropicaux et subtropicaux,Cultures fruitières,True
+01.22.19.2,Grenade,Fruits,Fruits tropicaux et subtropicaux,Cultures fruitières,True
+01.22.19.3,Papaye,Fruits,Fruits tropicaux et subtropicaux,Cultures fruitières,True
+01.22.19.4,Fruit du Jacquier,Fruits,Fruits tropicaux et subtropicaux,Cultures fruitières,True
+01.22.19.5,Fruit de la passion,Fruits,Fruits tropicaux et subtropicaux,Cultures fruitières,True
+01.22.19.6,Mangue,Fruits,Fruits tropicaux et subtropicaux,Cultures fruitières,True
+01.22.19.7,Kaki,Fruits,Fruits tropicaux et subtropicaux,Cultures fruitières,True
+01.22.19.8,Litchi,Fruits,Fruits tropicaux et subtropicaux,Cultures fruitières,True
+01.22.19.9,Autre fruit tropical et subtropical,Fruits,Fruits tropicaux et subtropicaux,Cultures fruitières,True
+01.23.11,Pamplemousse et pomelo,Fruits,Agrumes,Cultures fruitières,True
+01.23.12,Citron et lime,Fruits,Agrumes,Cultures fruitières,True
+01.23.13,Orange,Fruits,Agrumes,Cultures fruitières,True
+01.23.14,Mandarine et clémentine,Fruits,Agrumes,Cultures fruitières,True
+01.23.19,Autre agrume,Fruits,Agrumes,Cultures fruitières,True
+01.24.1,Pomme,Fruits,Fruits à pépins et à noyaux,Cultures fruitières,True
+01.24.10.1,Pomme à cidre,Fruits,Fruits à pépins et à noyaux,Cultures fruitières,True
+01.24.10.2,Pomme de table,Fruits,Fruits à pépins et à noyaux,Cultures fruitières,True
+01.24.21,Poire,Fruits,Fruits à pépins et à noyaux,Cultures fruitières,True
+01.24.22,Coing,Fruits,Fruits à pépins et à noyaux,Cultures fruitières,True
+01.24.23,Abricot,Fruits,Fruits à pépins et à noyaux,Cultures fruitières,True
+01.24.24,Cerise,Fruits,Fruits à pépins et à noyaux,Cultures fruitières,True
+01.24.25,Pêche,Fruits,Fruits à pépins et à noyaux,Cultures fruitières,True
+01.24.26,Nectarine,Fruits,Fruits à pépins et à noyaux,Cultures fruitières,True
+01.24.27,Prune,Fruits,Fruits à pépins et à noyaux,Cultures fruitières,True
+01.24.27.1,Prune d'Ente,Fruits,Fruits à pépins et à noyaux,Cultures fruitières,True
+01.24.28,Prunelle,Fruits,Fruits à pépins et à noyaux,Cultures fruitières,True
+01.24.29,Autre fruit à pépins et à noyaux,Fruits,Fruits à pépins et à noyaux,Cultures fruitières,True
+01.24.29.1,Autre fruit à pépins,Fruits,Fruits à pépins et à noyaux,Cultures fruitières,True
+01.24.29.2,Autre fruit à noyaux,Fruits,Fruits à pépins et à noyaux,Cultures fruitières,True
+01.25.11,Kiwi,Fruits,Baies,Cultures fruitières,True
+01.25.12,Framboise,Fruits,Baies,Cultures fruitières,True
+01.25.13,Fraise,Fruits,Baies,Cultures fruitières,True
+01.25.19.1,Cassis,Fruits,Baies,Cultures fruitières,True
+01.25.19.2,Myrtille,Fruits,Baies,Cultures fruitières,True
+01.25.19.4,Airelle,Fruits,Baies,Cultures fruitières,True
+01.25.19.5,Groseille,Fruits,Baies,Cultures fruitières,True
+01.25.19.9,Autre baie,Fruits,Baies,Cultures fruitières,True
+01.25.31,Amande,Fruits,Fruits oléagineux,Cultures fruitières,True
+01.25.32,Châtaigne et marron,Fruits,Fruits oléagineux,Cultures fruitières,True
+01.25.33,Noisette,Fruits,Fruits oléagineux,Cultures fruitières,True
+01.25.34,Pistache,Fruits,Fruits oléagineux,Cultures fruitières,True
+01.25.35,Noix,Fruits,Fruits oléagineux,Cultures fruitières,True
+01.25.39,Autre fruit à coque,Fruits,Fruits oléagineux,Cultures fruitières,True
+01.26.1,Olive,Fruits,Fruits oléagineux,Cultures fruitières,True
+01.26.11,Olive de table,Fruits,Fruits oléagineux,Cultures fruitières,True
+01.26.12,Olive à huile,Fruits,Fruits oléagineux,Cultures fruitières,True
+01.26.2,Noix de coco,Fruits,Fruits oléagineux,Cultures fruitières,True
+01.26.9,Autre fruit oléagineux,Fruits,Fruits oléagineux,Cultures fruitières,True
+01.11.11,Blé dur,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.12,Blé tendre,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.20.1,Maïs doux,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.20.2,Maïs grain,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.20.3,Maïs pop-corn,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.31,Orge,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.31.1,Orge de brasserie,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.31.2,Orge fourrager,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.32,Seigle,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.33,Avoine,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.41,Sorgho,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.42,Millet,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.43,Triticale,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.49.1,Epeautre,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.49.11,Petit épeautre,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.49.12,Grand épeautre,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.49.2,Sarrasin,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.49.31,Mélange de céréales prépondérants,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.49.32,Mélange de légumineuses non fourragères prépondérantes,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.49.4,Quinoa,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.49.5,Moha,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.49.9,Autre céréale,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.61,Haricot vert,Grandes Cultures,Protéagineux et légumes secs,Céréales et oléoprotéagineux,True
+01.11.69.9,Autre légumineuse pour l'alimentation animale,Grandes Cultures,Protéagineux et légumes secs,Céréales et oléoprotéagineux,True
+01.11.71,Haricot sec et flageolet,Grandes Cultures,Protéagineux et légumes secs,Céréales et oléoprotéagineux,True
+01.11.72,Féverole,Grandes Cultures,Protéagineux et légumes secs,Céréales et oléoprotéagineux,True
+01.11.73,Pois chiche,Grandes Cultures,Protéagineux et légumes secs,Céréales et oléoprotéagineux,True
+01.11.74,Lentille sèche,Grandes Cultures,Protéagineux et légumes secs,Céréales et oléoprotéagineux,True
+01.11.75,Pois protéagineux,Grandes Cultures,Protéagineux et légumes secs,Céréales et oléoprotéagineux,True
+01.11.76,Dolique et cornille,Grandes Cultures,Protéagineux et légumes secs,Céréales et oléoprotéagineux,True
+01.11.77,Pois d'Angole,Grandes Cultures,Protéagineux et légumes secs,Céréales et oléoprotéagineux,True
+01.11.79.1,Lupin doux,Grandes Cultures,Protéagineux et légumes secs,Céréales et oléoprotéagineux,True
+01.11.79.9,Autre légumineuse pour l'alimentation humaine,Grandes Cultures,Protéagineux et légumes secs,Céréales et oléoprotéagineux,True
+01.11.81,Soja,Grandes Cultures,Oléagineux,Céréales et oléoprotéagineux,True
+01.11.82,Arachide,Grandes Cultures,Oléagineux,Céréales et oléoprotéagineux,True
+01.11.91,Lin non textile,Grandes Cultures,Oléagineux,Céréales et oléoprotéagineux,True
+01.11.92,Moutarde,Grandes Cultures,Oléagineux,Céréales et oléoprotéagineux,True
+01.11.93,Colza et navette,Grandes Cultures,Oléagineux,Céréales et oléoprotéagineux,True
+01.11.94,Sésame,Grandes Cultures,Oléagineux,Céréales et oléoprotéagineux,True
+01.11.95,Tournesol,Grandes Cultures,Oléagineux,Céréales et oléoprotéagineux,True
+01.11.96,Ricin,Grandes Cultures,Oléagineux,Céréales et oléoprotéagineux,True
+01.11.99.1,Cameline,Grandes Cultures,Oléagineux,Céréales et oléoprotéagineux,True
+01.11.99.2,Jojoba,Grandes Cultures,Oléagineux,Céréales et oléoprotéagineux,True
+01.11.99.3,Carthame,Grandes Cultures,Oléagineux,Céréales et oléoprotéagineux,True
+01.11.99.8,Mélange d'oléagineux prépondérants,Grandes Cultures,Oléagineux,Céréales et oléoprotéagineux,True
+01.11.99.9,Autre oléagineux,Grandes Cultures,Oléagineux,Céréales et oléoprotéagineux,True
+01.12.1,Riz,Grandes Cultures,Céréales,Céréales et oléoprotéagineux,True
+01.11.69.1,Petits pois,Légumes,Légumes de plein champ,Maraîchage,True
+01.11.69.2,Fève potagère,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.11,Asperge,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.12,Chou,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.13,Chou-fleur et brocoli,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.14,Laitue,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.15,Chicorée,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.16,Épinard,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.17,Artichaut,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.19.1,Endive,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.19.2,Céleri branche,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.19.4,Cresson,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.19.5,Rhubarbe,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.19.6,Blette,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.19.7,Jeunes pousses,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.19.81,Feuille de chêne,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.19.82,Batavia,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.19.83,Mâche,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.19.84,Scarole,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.19.85,Frisée,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.19.86,Roquette,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.19.89,Autre salade,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.19.9,Autre légume à feuille ou à tige,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.21,Pastèque,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.29.1,Melon,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.31,Poivron et piment,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.32,Concombre,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.33,Aubergine,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.34,Tomate,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.39.2,Courgette,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.39.3,Courge et citrouille,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.39.32,"Potiron, potimarron",Légumes,Légumes de plein champ,Maraîchage,True
+01.13.39.99,Autre légume à fruit,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.41.1,Carotte,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.41.2,Navet,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.42,Ail,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.43,Oignon et échalote,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.43.1,Oignon,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.43.2,Échalote,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.44,Poireau,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.49.1,Radis,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.49.2,Betterave rouge,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.49.3,Céleri rave,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.49.4,Panais,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.49.5,Salsifi,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.49.6,Rutabaga,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.49.9,"Autre légume à racine, à bulbe ou à tubercule",Légumes,Légumes de plein champ,Maraîchage,True
+01.13.51.1,Pomme de terre,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.51.2,Pomme de terre féculière,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.52,Patate douce,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.53,Manioc,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.54,Taro,Légumes,Légumes de plein champ,Maraîchage,True
+01.13.80.1,Champignon,Légumes,Maraîchage diversifié et champignons,Maraîchage,True
+01.13.80.2,Truffière,Légumes,Maraîchage diversifié et champignons,Maraîchage,True
+01.13.90.1,Maraîchage diversifié sous abris,Légumes,Maraîchage diversifié et champignons,Maraîchage,True
+01.13.90.2,Maraîchage diversifié plein champ,Légumes,Maraîchage diversifié et champignons,Maraîchage,True
+01.27.10.1,Honeybush,"Plantes à parfums, aromatiques et médicinales et plantes à boissons",Plantes à boissons,"Plantes à parfum, aromatiques et médicinales",True
+01.27.10.2,Rooibos,"Plantes à parfums, aromatiques et médicinales et plantes à boissons",Plantes à boissons,"Plantes à parfum, aromatiques et médicinales",True
+01.27.10.9,Autre plante à boisson,"Plantes à parfums, aromatiques et médicinales et plantes à boissons",Plantes à boissons,"Plantes à parfum, aromatiques et médicinales",True
+01.27.11,Café,"Plantes à parfums, aromatiques et médicinales et plantes à boissons",Plantes à boissons,"Plantes à parfum, aromatiques et médicinales",True
+01.27.12,Thé,"Plantes à parfums, aromatiques et médicinales et plantes à boissons",Plantes à boissons,"Plantes à parfum, aromatiques et médicinales",True
+01.27.13,Maté,"Plantes à parfums, aromatiques et médicinales et plantes à boissons",Plantes à boissons,"Plantes à parfum, aromatiques et médicinales",True
+01.27.14,Cacao (fèves),"Plantes à parfums, aromatiques et médicinales et plantes à boissons",Plantes à boissons,"Plantes à parfum, aromatiques et médicinales",True
+01.28.00.99,Autre PPAM,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.11,Poivre,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.12,Piment et poivron séchés,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.13,"Muscade, macis et cardamome","Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.14.1,Coriandre (graines),"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.14.2,Fenouil doux et amer,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.14.31,Anis,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.14.32,Badiane,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.14.9,"Cumin, carvi et genièvre","Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.15,Cannelle,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.16,Clou de girofle,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.17,Gingembre,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.18,Vanille,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.1,Sarriette,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.21,Romarin,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.22,Safran,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.23,Sauge sclarée,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.24,Serpolet,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.25,Thym,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.26,Aneth,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.27,Basilic,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.28,Camomille,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.29,Cerfeuil,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.3,Menthe,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.31,Menthe douce,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.32,Menthe poivrée,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.41,Fenugrec,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.42,Origan,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.43,Persil,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.44,Ciboulette,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.45,Estragon,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.46,Oseille,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.47,Coriandre,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.48,Pensée,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.51,Curcuma,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.19.52,Laurier,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.2,Houblon,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.11,Lavande,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.12,Lavandin,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.2,Marjolaine,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.31,Matricaire,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.32,Hysope,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.33,Bardane,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.34,Bleuet,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.35,Bugle rampant,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.36,Géranium,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.37,Ortie,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.38,Psyllium noir,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.39,Psyllium blond,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.41,Echinacée,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.42,Calendula,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.43,Mauve,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.44,Valériane,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.45,Véronique,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.46,Vétiver,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.47,Ylang-ylang,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.48,Angélique,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.49,Chardon Marie,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.5,Mélilot,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.51,Citronelle,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.6,Mélisse,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.71,Millepertuis,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.72,Reine des prés,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.81,Sauge officinale,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.82,Verveine odorante,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.28.30.83,Verveine officinale,"Plantes à parfums, aromatiques et médicinales et plantes à boissons","Plantes à parfums, aromatiques et médicinales","Plantes à parfum, aromatiques et médicinales",True
+01.19.10.11,Prairie temporaire,Surfaces fourragères,"Prairies, parcours",Prairies,True
+01.19.10.12,Prairie permanente,Surfaces fourragères,"Prairies, parcours",Prairies,True
+01.19.10.13,Parcours herbeux,Surfaces fourragères,"Prairies, parcours",Prairies,True
+01.19.10.14,Parcours porc ou volaille,Surfaces fourragères,"Prairies, parcours",Prairies,True
+01.19.10.2,Betterave fourragère,Surfaces fourragères,Plantes fourragères,Cultures fourragères,True
+01.19.10.21,Sainfoin,Surfaces fourragères,Plantes fourragères,Cultures fourragères,True
+01.19.10.3,Chou fourrager,Surfaces fourragères,Plantes fourragères,Cultures fourragères,True
+01.19.10.4,Colza fourrager,Surfaces fourragères,Plantes fourragères,Cultures fourragères,True
+01.19.10.5,Maïs fourrager,Surfaces fourragères,Plantes fourragères,Cultures fourragères,True
+01.19.10.6,Mélange fourrager,Surfaces fourragères,Plantes fourragères,Cultures fourragères,True
+01.19.10.7,Trèfle,Surfaces fourragères,Plantes fourragères,Cultures fourragères,True
+01.19.10.8,Luzerne,Surfaces fourragères,Plantes fourragères,Cultures fourragères,True
+01.19.10.9,Autre plante fourragère,Surfaces fourragères,Plantes fourragères,Cultures fourragères,True
+01.21.11,Raisin de table (vigne),Viticulture,Viticulture,Vignes,True
+01.21.12,Raisin de cuve (vigne),Viticulture,Viticulture,Vignes,True
+99.99.99.99,Culture inconnue,Inconnu,Inconnu,Autres,True

@@ -35,7 +35,15 @@ COLONNES_RPG = {
 }
 COLONNES_AAC = {
     "id": ("cdaac", "code_aac", "cd_aac", "id_aac"),
-    "nom": ("nomaac", "lbaac", "nom_aac", "libelle", "nom"),
+    "nom": (
+        "nomdeaacusage",
+        "nomdeaacadministratif",
+        "nomaac",
+        "lbaac",
+        "nom_aac",
+        "libelle",
+        "nom",
+    ),
 }
 
 # Valeurs interprétées comme « bio » dans la colonne bio du RPG.

@@ -161,6 +161,16 @@ def test_synthese_nationale(base):
     assert ligne.nb_aac == 2
 
 
+def test_part_bio_nulle_et_non_vide(base):
+    s = db.requete(
+        f'SELECT cdaac, part_bio FROM "{base}".synthese_aac WHERE annee = %s ORDER BY cdaac',
+        (ANNEE,),
+    ).set_index("cdaac")
+    # T2 ne contient que F, conventionnelle : 0 %, et non une valeur manquante.
+    assert s.loc["T2", "part_bio"] == 0
+    assert s.loc["T1", "part_bio"] > 0
+
+
 def test_controles_qualite(base):
     assert qualite.controles_bloquants(ANNEE) == []
     rapport = qualite.diagnostics(ANNEE)
