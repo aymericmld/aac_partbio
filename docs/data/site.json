@@ -1,0 +1,254 @@
+{
+ "meta": {
+  "genere_le": "2026-11-19",
+  "demo": true,
+  "annees": [
+   2024,
+   2025
+  ],
+  "derniere": 2025,
+  "precedente": 2024,
+  "buffer_m": 500,
+  "seuil_recouvrement": 0.5,
+  "categories": [
+   "Céréales et oléoprotéagineux",
+   "Cultures fourragères",
+   "Prairies",
+   "Cultures fruitières",
+   "Maraîchage",
+   "Vignes",
+   "Plantes à parfum, aromatiques et médicinales",
+   "Autres",
+   "Non classé"
+  ],
+  "sources": {
+   "rpg": "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_RPG",
+   "bio": "https://www.data.gouv.fr/datasets/parcelles-certifiees-en-agriculture-biologique-sur-cartobio",
+   "aac": "https://www.data.gouv.fr/datasets/aires-dalimentation-de-captages-france-entiere-1"
+  }
+ },
+ "nationale": {
+  "2024": {
+   "annee": 2024,
+   "nb_aac": 26.0,
+   "nb_aac_avec_sau": 26.0,
+   "surface_aac_ha": 76728.2106,
+   "sau_aac_ha": 69943.1079,
+   "sau_bio_aac_ha": 7578.6552,
+   "part_bio_aac": 0.1084,
+   "nb_parcelles_aac": 6925.0,
+   "part_bio_pac_aac": 0.0866,
+   "part_bio_pac_france": 0.0908
+  },
+  "2025": {
+   "annee": 2025,
+   "nb_aac": 26.0,
+   "nb_aac_avec_sau": 26.0,
+   "surface_aac_ha": 76728.2106,
+   "sau_aac_ha": 69947.312,
+   "sau_bio_aac_ha": 7175.0613,
+   "part_bio_aac": 0.1026,
+   "nb_parcelles_aac": 6908.0,
+   "part_bio_pac_aac": 0.0842,
+   "part_bio_pac_france": 0.0845
+  }
+ },
+ "categories": {
+  "2024": [
+   {
+    "categorie": "Autres",
+    "sau_ha": 3841.9506,
+    "sau_bio_ha": 92.9716,
+    "sau_ab_ha": 79.7934,
+    "sau_conversion_ha": 0.0,
+    "part_bio": 0.0242
+   },
+   {
+    "categorie": "Cultures fourragères",
+    "sau_ha": 708.4286,
+    "sau_bio_ha": 20.4841,
+    "sau_ab_ha": 20.4841,
+    "sau_conversion_ha": 0.0,
+    "part_bio": 0.0289
+   },
+   {
+    "categorie": "Cultures fruitières",
+    "sau_ha": 1268.8125,
+    "sau_bio_ha": 341.6175,
+    "sau_ab_ha": 252.8792,
+    "sau_conversion_ha": 88.7383,
+    "part_bio": 0.2692
+   },
+   {
+    "categorie": "Céréales et oléoprotéagineux",
+    "sau_ha": 37461.5748,
+    "sau_bio_ha": 3566.3021,
+    "sau_ab_ha": 2328.4775,
+    "sau_conversion_ha": 904.5836,
+    "part_bio": 0.0952
+   },
+   {
+    "categorie": "Maraîchage",
+    "sau_ha": 3765.4024,
+    "sau_bio_ha": 172.013,
+    "sau_ab_ha": 119.4482,
+    "sau_conversion_ha": 26.0664,
+    "part_bio": 0.0457
+   },
+   {
+    "categorie": "Non classé",
+    "sau_ha": 305.4551,
+    "sau_bio_ha": 41.8249,
+    "sau_ab_ha": 30.9512,
+    "sau_conversion_ha": 10.8737,
+    "part_bio": 0.1369
+   },
+   {
+    "categorie": "Plantes à parfum, aromatiques et médicinales",
+    "sau_ha": 702.1208,
+    "sau_bio_ha": 283.396,
+    "sau_ab_ha": 177.95,
+    "sau_conversion_ha": 105.446,
+    "part_bio": 0.4036
+   },
+   {
+    "categorie": "Prairies",
+    "sau_ha": 16937.5593,
+    "sau_bio_ha": 2178.458,
+    "sau_ab_ha": 1668.7312,
+    "sau_conversion_ha": 399.8326,
+    "part_bio": 0.1286
+   },
+   {
+    "categorie": "Vignes",
+    "sau_ha": 4951.8038,
+    "sau_bio_ha": 881.5878,
+    "sau_ab_ha": 657.2249,
+    "sau_conversion_ha": 176.5221,
+    "part_bio": 0.178
+   }
+  ],
+  "2025": [
+   {
+    "categorie": "Autres",
+    "sau_ha": 3790.9784,
+    "sau_bio_ha": 144.4,
+    "sau_ab_ha": 77.3212,
+    "sau_conversion_ha": 13.2197,
+    "part_bio": 0.0381
+   },
+   {
+    "categorie": "Cultures fourragères",
+    "sau_ha": 659.5441,
+    "sau_bio_ha": 52.4312,
+    "sau_ab_ha": 26.1481,
+    "sau_conversion_ha": 13.1735,
+    "part_bio": 0.0795
+   },
+   {
+    "categorie": "Cultures fruitières",
+    "sau_ha": 1069.8416,
+    "sau_bio_ha": 377.5873,
+    "sau_ab_ha": 261.1351,
+    "sau_conversion_ha": 116.4522,
+    "part_bio": 0.3529
+   },
+   {
+    "categorie": "Céréales et oléoprotéagineux",
+    "sau_ha": 36925.0807,
+    "sau_bio_ha": 3103.4622,
+    "sau_ab_ha": 2190.0907,
+    "sau_conversion_ha": 643.7686,
+    "part_bio": 0.084
+   },
+   {
+    "categorie": "Maraîchage",
+    "sau_ha": 3678.4484,
+    "sau_bio_ha": 170.6165,
+    "sau_ab_ha": 117.7466,
+    "sau_conversion_ha": 35.7835,
+    "part_bio": 0.0464
+   },
+   {
+    "categorie": "Non classé",
+    "sau_ha": 312.7733,
+    "sau_bio_ha": 22.3841,
+    "sau_ab_ha": 22.3841,
+    "sau_conversion_ha": 0.0,
+    "part_bio": 0.0716
+   },
+   {
+    "categorie": "Plantes à parfum, aromatiques et médicinales",
+    "sau_ha": 520.3963,
+    "sau_bio_ha": 161.3582,
+    "sau_ab_ha": 120.1667,
+    "sau_conversion_ha": 30.3094,
+    "part_bio": 0.3101
+   },
+   {
+    "categorie": "Prairies",
+    "sau_ha": 17587.66,
+    "sau_bio_ha": 2288.8972,
+    "sau_ab_ha": 1546.3632,
+    "sau_conversion_ha": 567.5841,
+    "part_bio": 0.1301
+   },
+   {
+    "categorie": "Vignes",
+    "sau_ha": 5402.5893,
+    "sau_bio_ha": 853.9247,
+    "sau_ab_ha": 647.32,
+    "sau_conversion_ha": 158.9405,
+    "part_bio": 0.1581
+   }
+  ]
+ },
+ "qualite": {
+  "2024": {
+   "taux_appariement_bio": 0.9597135183527306,
+   "part_chevauchement_residuel": 0.0004907870356889183,
+   "part_sau_non_classee": 0.004367193663892622,
+   "concordance_categories": 1.0,
+   "parcelles_par_source": [
+    {
+     "source": "cartobio_hors_rpg",
+     "parcelles": 45,
+     "surface_ha": "470.1"
+    },
+    {
+     "source": "cartobio_rpg",
+     "parcelles": 1072,
+     "surface_ha": "11025.2"
+    },
+    {
+     "source": "rpg",
+     "parcelles": 8179,
+     "surface_ha": "97208.5"
+    }
+   ]
+  },
+  "2025": {
+   "taux_appariement_bio": 0.9524281466798811,
+   "part_chevauchement_residuel": 0.0004793168127599773,
+   "part_sau_non_classee": 0.004471556269508607,
+   "concordance_categories": 1.0,
+   "parcelles_par_source": [
+    {
+     "source": "cartobio_hors_rpg",
+     "parcelles": 48,
+     "surface_ha": "522.2"
+    },
+    {
+     "source": "cartobio_rpg",
+     "parcelles": 961,
+     "surface_ha": "9971.7"
+    },
+    {
+     "source": "rpg",
+     "parcelles": 8270,
+     "surface_ha": "98219.4"
+    }
+   ]
+  }
+ }
+}
