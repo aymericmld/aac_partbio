@@ -1,6 +1,6 @@
 {
  "meta": {
-  "genere_le": "2026-11-19",
+  "genere_le": "2026-11-23",
   "demo": false,
   "annees": [
    2025
@@ -140,5 +140,13 @@
     }
    ]
   }
+ },
+ "chevauchements": {
+  "paires_aac": 816,
+  "aac_chevauchantes": 724,
+  "parcelles_multi_aac": 136390,
+  "parcelles_aac": 1139321,
+  "sau_additionnee_ha": 3802187.1,
+  "surface_aac_additionnee_ha": 6414460.1
  }
 }

@@ -139,7 +139,7 @@ def _poly(coords: list) -> dict:
 
 
 def generer(annee: int = 2025, graine: int = 2025, dossier: Path | None = None) -> Sources:
-    """Écrit les cinq fichiers sources d'un millésime fictif et renvoie leurs chemins.
+    """Écrit les cinq fichiers sources d'une année fictive et renvoie leurs chemins.
 
     Pour chaque territoire de TERRITOIRES : deux AAC aux contours irréguliers,
     puis une grille de parcelles rectangulaires autour d'elles. Chaque parcelle

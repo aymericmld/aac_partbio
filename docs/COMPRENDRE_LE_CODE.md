@@ -13,7 +13,6 @@ On superpose trois cartes : les parcelles agricoles déclarées à la PAC (RPG),
 | **AAC** | Aire d'alimentation de captage : la zone dont l'eau, en s'infiltrant ou en ruisselant, rejoint un captage d'eau potable. |
 | **RPG** | Registre parcellaire graphique : le dessin de toutes les parcelles déclarées par les agriculteurs pour les aides de la PAC, avec leur culture. Publié chaque année par l'IGN. |
 | **CartoBio** | La carte des parcelles certifiées en agriculture biologique ou en conversion, publiée par l'Agence Bio. |
-| **Millésime** | L'année des données : RPG 2025, CartoBio 2025. |
 | **Conversion** | Une parcelle passe trois ans « en conversion » (C1, C2, C3) avant d'être certifiée bio (AB). |
 | **PostgreSQL** | Une base de données : un logiciel qui stocke des tables et répond à des requêtes SQL. |
 | **PostGIS** | Une extension de PostgreSQL qui ajoute les géométries (points, lignes, polygones) et les calculs dessus : surface, intersection, distance… Ses fonctions commencent par `ST_`. |

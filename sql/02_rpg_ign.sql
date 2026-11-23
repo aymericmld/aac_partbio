@@ -15,9 +15,9 @@
 --
 -- Variables remplies par traitement.py :
 --   rpg_id, rpg_culture, rpg_surface : noms des colonnes du RPG (ils peuvent
---       changer d'un millésime à l'autre, le programme les détecte) ;
+--       changer d'une année à l'autre, le programme les détecte) ;
 --   rpg_bio_expr : expression SQL qui vaut vrai si la parcelle est
---       « constatée bio » dans le RPG. Pour un millésime sans cette
+--       « constatée bio » dans le RPG. Pour une année sans cette
 --       information, elle vaut NULL (valeur inconnue).
 -- =====================================================================
 

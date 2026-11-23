@@ -78,11 +78,11 @@ VALEURS_VRAI = ("1", "t", "true", "o", "oui", "y", "yes", "bio", "ab", "x")
 
 # --- Fichiers sources -------------------------------------------------------
 # Une « dataclass » est une petite structure qui regroupe des valeurs sous des
-# noms : ici, les chemins des cinq fichiers nécessaires à un millésime.
+# noms : ici, les chemins des cinq fichiers nécessaires au traitement d'une année.
 # frozen=True interdit de les modifier une fois créés.
 @dataclass(frozen=True)
 class Sources:
-    """Chemins des fichiers d'entrée d'un millésime."""
+    """Chemins des fichiers d'entrée pour une année."""
 
     rpg: Path
     bio: Path
@@ -95,7 +95,7 @@ def sources_par_defaut(annee: int, racine: Path = RAW) -> Sources:
     """Emplacements attendus des fichiers téléchargés (voir docs/DONNEES.md).
 
     Exemple pour 2025 : data/raw/2025/rpg_parcelles.gpkg, data/raw/aac.gpkg...
-    Les AAC et la liste CPFBIO sont communes à tous les millésimes, d'où leur
+    Les AAC et la liste CPFBIO sont indépendantes de l'année, d'où leur
     place à la racine de data/raw.
     """
     dossier = racine / str(annee)

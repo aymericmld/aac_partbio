@@ -29,7 +29,7 @@ TOLERANCE_SIMPLIFICATION_M = 50
 
 
 def annees_traitees() -> list[int]:
-    """Millésimes déjà calculés dans la base, du plus ancien au plus récent."""
+    """Années déjà calculées dans la base, du plus ancien au plus récent."""
     if not db.table_existe("synthese_nationale"):
         return []
     df = db.requete(f'SELECT annee FROM "{S}".synthese_nationale ORDER BY annee')
@@ -37,7 +37,7 @@ def annees_traitees() -> list[int]:
 
 
 def exporter_csv() -> None:
-    """Écrit les trois tables de synthèse en CSV (tous millésimes confondus)."""
+    """Écrit les trois tables de synthèse en CSV (toutes les années calculées)."""
     PROCESSED.mkdir(parents=True, exist_ok=True)
     for table in ("synthese_aac", "synthese_categorie", "synthese_nationale"):
         df = db.requete(f'SELECT * FROM "{S}".{table} ORDER BY 1, 2')
@@ -127,6 +127,40 @@ def exporter_geojson(annee: int, precedente: int | None) -> int:
     return len(entites)
 
 
+def chevauchements(annee: int) -> dict:
+    """Mesure l'ampleur des AAC qui se superposent, pour l'afficher sur la page.
+
+    Compare les totaux additionnés AAC par AAC (qui comptent plusieurs fois les
+    zones communes) aux totaux sans double compte utilisés dans les résultats.
+    """
+    paires = db.requete(
+        f"""SELECT count(*) AS paires, count(DISTINCT x.cdaac) AS aac
+            FROM (SELECT a.cdaac, b.cdaac AS autre
+                  FROM "{S}".aac a JOIN "{S}".aac b
+                    ON a.cdaac <> b.cdaac AND ST_Intersects(a.geom, b.geom)
+                   AND ST_Area(ST_Intersection(a.geom, b.geom)) > 0) x"""
+    ).iloc[0]
+    parcelles = db.requete(
+        f"""SELECT count(*) FILTER (WHERE nb_aac > 1) AS multi, count(*) AS total
+            FROM "{S}".parcel_dans_aac WHERE annee = %s""",
+        (annee,),
+    ).iloc[0]
+    sau_additionnee = db.requete(
+        f'SELECT sum(surface_dans_aac_ha) AS s FROM "{S}".parcel_aac WHERE annee = %s',
+        (annee,),
+    ).s.iat[0]
+    surface_additionnee = db.requete(f'SELECT sum(surface_ha) AS s FROM "{S}".aac').s.iat[0]
+    return {
+        # Chaque paire est vue dans les deux sens (A-B et B-A) : on divise par 2.
+        "paires_aac": int(paires.paires) // 2,
+        "aac_chevauchantes": int(paires.aac),
+        "parcelles_multi_aac": int(parcelles.multi),
+        "parcelles_aac": int(parcelles.total),
+        "sau_additionnee_ha": _arrondir(sau_additionnee, 1),
+        "surface_aac_additionnee_ha": _arrondir(surface_additionnee, 1),
+    }
+
+
 def exporter_site(demo: bool = False) -> None:
     """Écrit docs/data/site.json et docs/data/aac.geojson, lus par la page web.
 
@@ -134,7 +168,7 @@ def exporter_site(demo: bool = False) -> None:
     """
     annees = annees_traitees()
     if not annees:
-        raise RuntimeError("aucun millésime traité : lancer `traiter` d'abord")
+        raise RuntimeError("aucune année traitée : lancer `traiter` d'abord")
     derniere = annees[-1]
     precedente = annees[-2] if len(annees) > 1 else None
 
@@ -184,13 +218,14 @@ def exporter_site(demo: bool = False) -> None:
             for a, groupe in categories.groupby("annee")
         },
         "qualite": qualite,
+        "chevauchements": chevauchements(derniere),
     }
     SITE_DATA.mkdir(parents=True, exist_ok=True)
     (SITE_DATA / "site.json").write_text(
         json.dumps(site, ensure_ascii=False, indent=1, default=str, allow_nan=False)
     )
     nb = exporter_geojson(derniere, precedente)
-    print(f"site : {len(annees)} millésime(s), {nb} AAC dans aac.geojson")
+    print(f"site : {len(annees)} année(s), {nb} AAC dans aac.geojson")
 
 
 def exporter_gpkg(annee: int) -> None:

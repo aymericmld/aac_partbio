@@ -6,7 +6,7 @@ Ce projet croise trois sources ouvertes dans PostgreSQL/PostGIS : le Registre pa
 
 | Pour aller plus loin | |
 |---|---|
-| [Page de restitution](https://aymericmld.github.io/aac_partbio/) | Carte, cultures, classement des AAC, évolution |
+| [Page de restitution](https://aymericmld.github.io/aac_partbio/) | Carte, cultures, classement des AAC |
 | [Méthodologie détaillée](docs/METHODOLOGIE.md) | Classification, appariement, contrôles et limites |
 | [Récupérer les données](docs/DONNEES.md) | Où télécharger chaque source et où la déposer |
 | [Comprendre le code](docs/COMPRENDRE_LE_CODE.md) | Visite guidée des scripts, pour qui découvre SQL, PostGIS ou Python |
@@ -40,7 +40,7 @@ flowchart LR
 2. **Délimiter.** Les AAC sont nettoyées et élargies de 500 m pour sélectionner les parcelles à apparier.
 3. **Apparier.** Chaque parcelle bio est comparée aux parcelles du RPG qu'elle chevauche. Une parcelle RPG couverte à au moins 50 % par du bio est remplacée.
 4. **Rattacher.** Les parcelles sont coupées aux limites des AAC, sans double compte entre AAC superposées.
-5. **Contrôler.** Sept contrôles bloquants et un rapport de diagnostics accompagnent chaque millésime.
+5. **Contrôler.** Sept contrôles bloquants et un rapport de diagnostics accompagnent chaque exécution.
 
 ## Les résultats
 
@@ -67,13 +67,19 @@ Les céréales et oléoprotéagineux dominent dans 1 175 AAC sur 1 590. C'est au
 
 ### De fortes disparités entre AAC
 
-Parmi les 1 522 AAC qui comptent au moins 10 ha agricoles :
+29 AAC n'ont aucune parcelle agricole connue et 39 en ont moins de 10 ha : sur ces dernières, une seule parcelle suffit à faire basculer la part de bio, elles sont donc signalées sur la page. Parmi les 1 522 AAC qui comptent au moins 10 ha agricoles :
 
 - 385, soit une sur quatre, n'ont aucune parcelle bio ;
 - la part bio médiane est de 3,6 % ;
 - 461 ont au moins 10 % de bio, et 50 au moins 50 %.
 
 Quelques très grandes AAC, qui couvrent des bassins versants entiers, pèsent lourd : les dix AAC les plus agricoles rassemblent environ un tiers de la surface agricole additionnée AAC par AAC.
+
+### Des AAC qui se superposent
+
+Les AAC ne forment pas un découpage : 724 d'entre elles, soit 46 %, chevauchent au moins une autre AAC (816 paires), par exemple quand deux captages voisins partagent une partie de leur bassin. En conséquence, 136 000 parcelles sur 1,14 million touchent plusieurs AAC.
+
+Les chiffres par AAC comptent chaque parcelle dans toutes les AAC qu'elle touche, ce qui est voulu : chaque captage est concerné. Les totaux, eux, ne comptent chaque surface qu'une fois. Additionnée AAC par AAC, la surface agricole atteindrait 3,80 millions d'hectares au lieu de 3,28, soit 16 % de trop ; la surface des AAC, 6,41 millions au lieu de 5,60.
 
 ### Qualité du croisement
 
@@ -92,7 +98,7 @@ Les règles de classement codées reproduisent exactement les référentiels cla
 |---|---|
 | [`synthese_aac.csv`](data/processed/synthese_aac.csv) | Une ligne par AAC : surface agricole, surfaces bio, AB et en conversion, part bio, culture dominante |
 | [`synthese_categorie.csv`](data/processed/synthese_categorie.csv) | Surface agricole et bio par catégorie |
-| [`synthese_nationale.csv`](data/processed/synthese_nationale.csv) | Indicateurs clés du millésime |
+| [`synthese_nationale.csv`](data/processed/synthese_nationale.csv) | Indicateurs clés de l'année |
 | [`rapport_qualite_2025.json`](data/processed/rapport_qualite_2025.json) | Diagnostics détaillés du croisement |
 | `parcel_aac_2025.gpkg` | Parcelles rattachées aux AAC, pour QGIS (option `--gpkg`, non versionné) |
 
@@ -118,7 +124,7 @@ Renseigner la connexion PostgreSQL dans `.env`, déposer les sources selon [DONN
 .venv/bin/python -m aac_partbio tout --annee 2025 --gpkg
 ```
 
-Pour ajouter un autre millésime et suivre l'évolution sur le même périmètre d'AAC, le traiter sans recharger les AAC (ici 2026, une fois publié) :
+Le projet ne porte aujourd'hui que sur 2025. Le code accepte une autre année avec l'option `--annee` ; pour suivre une évolution sur le même périmètre d'AAC, il faudrait la traiter sans recharger les AAC (par exemple 2026, une fois publiée) :
 
 ```bash
 .venv/bin/python -m aac_partbio tout --annee 2026 --sans-aac
@@ -131,7 +137,7 @@ Sur une machine modeste, le RPG complet (plus de 6 Go) peut d'abord être rédui
 .venv/bin/python -m aac_partbio.prefiltre --rpg RPG_Parcelles.gpkg --bio cartobio.gpkg --aac AAC.gpkg --sortie data/raw/2025
 ```
 
-Pour tester la chaîne sans télécharger les sources, le jeu synthétique génère deux millésimes et les traite. Il écrit dans son propre schéma pour ne pas mélanger ses tables aux vraies, et ses sorties vont dans `data/processed/demo/` :
+Pour tester la chaîne sans télécharger les sources, le jeu synthétique génère deux années fictives et les traite. Il écrit dans son propre schéma pour ne pas mélanger ses tables aux vraies, et ses sorties vont dans `data/processed/demo/` :
 
 ```bash
 AAC_SCHEMA=aac_partbio_demo .venv/bin/python -m aac_partbio demo
@@ -180,7 +186,7 @@ Ce premier jet pose la chaîne complète ; plusieurs points restent à travaille
 
 - **Aligner la grille de cultures** sur les deux cas de discordance repérés : surfaces pastorales collectives et mélanges céréales-légumineuses.
 - **Tester la sensibilité au seuil de recouvrement** (50 %) : relancer à 30 % et 70 % et comparer les résultats.
-- **Ajouter un millésime** pour mesurer une évolution sur le même périmètre d'AAC.
+- **Ajouter une deuxième année** pour mesurer une évolution sur le même périmètre d'AAC.
 - **Croiser avec la qualité de l'eau** mesurée aux captages (nitrates, pesticides), pour passer de l'occupation des sols aux enjeux.
 - **Traiter l'outre-mer** avec les fichiers RPG des départements d'outre-mer.
 
@@ -192,7 +198,7 @@ Ce premier jet pose la chaîne complète ; plusieurs points restent à travaille
 | Appariement | Recouvrement surfacique entre deux référentiels parcellaires, règle de priorité, mesure du résiduel |
 | Référentiels | Classification documentée de deux nomenclatures de cultures, contrôle de concordance |
 | Qualité | Contrôles bloquants, rapport de diagnostics, scénario de test construit à la main |
-| Restitution | Page web Leaflet sans framework, carte choroplèthe, tableau triable, évolution entre millésimes |
+| Restitution | Page web Leaflet sans framework, carte choroplèthe, tableau triable |
 
 ## Sources
 

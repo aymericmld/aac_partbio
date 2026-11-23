@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
-  <link rel="stylesheet" href="assets/style.css?v=2">
+  <link rel="stylesheet" href="assets/style.css?v=3">
 </head>
 <body>
 
@@ -85,8 +85,8 @@
         <p>Repérer les AAC où l'agriculture occupe le plus de place et celles où le bio est déjà bien implanté.</p></div>
       <div class="card reveal"><i class="fa-solid fa-wheat-awn"></i><h3>Sur quoi agir</h3>
         <p>Savoir quelles cultures dominent : une AAC en prairies n'appelle pas les mêmes leviers qu'une AAC en grandes cultures.</p></div>
-      <div class="card reveal"><i class="fa-solid fa-chart-line"></i><h3>Suivre</h3>
-        <p>Comparer les millésimes sur le même périmètre d'AAC pour mesurer la progression du bio dans le temps.</p></div>
+      <div class="card reveal"><i class="fa-solid fa-chart-line"></i><h3>Comparer</h3>
+        <p>Situer chaque AAC par rapport aux autres et à la moyenne nationale, à partir d'une même méthode pour toute la France.</p></div>
     </div>
   </section>
 
@@ -100,7 +100,7 @@
       <div class="step reveal"><h3>Emprise</h3><p>Les AAC sont nettoyées puis élargies d'un tampon de <span id="m-buffer">500</span> m pour sélectionner les parcelles proches.</p></div>
       <div class="step reveal"><h3>Préparation</h3><p>Géométries corrigées et projetées en Lambert 93, cultures classées dans 8 catégories communes aux deux référentiels.</p></div>
       <div class="step reveal"><h3>Appariement</h3><p>Chaque parcelle bio est comparée aux parcelles du RPG qu'elle chevauche, en surface réellement commune.</p></div>
-      <div class="step reveal"><h3>Rattachement</h3><p>Les parcelles sont coupées aux limites des AAC. Une parcelle à cheval sur deux AAC n'est comptée qu'une fois au total.</p></div>
+      <div class="step reveal"><h3>Rattachement</h3><p>Les parcelles sont coupées aux limites des AAC. Une parcelle à cheval sur deux AAC n'est comptée qu'une fois au total.</p><p class="muted" id="m-chevauch"></p></div>
     </div>
     <div class="rule-box reveal">
       <div>
@@ -169,10 +169,12 @@
     <div class="reveal">
       <span class="kicker">Toutes les AAC</span>
       <h2>Le tableau complet</h2>
-      <p class="lead">Triez par colonne, cliquez sur une ligne pour la retrouver sur la carte. Les AAC de moins de
-        <b>10 ha</b> de surface agricole sont signalées, leur part de bio étant très sensible à une seule parcelle.</p>
+      <p class="lead">Triez par colonne, cliquez sur une ligne pour la retrouver sur la carte.</p>
+      <p id="petites-texte"></p>
     </div>
     <div class="viz-card reveal" style="margin-top:1.6rem">
+      <label class="capsule" style="display:inline-flex;margin-bottom:1rem;cursor:pointer">
+        <input type="checkbox" id="filtre-petites" style="width:auto"> <span id="filtre-petites-label">Afficher seulement les petites AAC</span></label>
       <table id="aac-table" aria-label="Indicateurs par AAC"></table>
       <div class="pager" id="pager"></div>
     </div>
@@ -182,8 +184,8 @@
   <section class="section" id="evolution" data-titre="Évolution" hidden>
     <div class="reveal">
       <span class="kicker">Dans le temps</span>
-      <h2 id="evo-titre">Évolution entre deux millésimes</h2>
-      <p class="lead">Les deux millésimes sont calculés sur le même périmètre d'AAC. Les identifiants de parcelles
+      <h2 id="evo-titre">Évolution entre deux années</h2>
+      <p class="lead">Les deux années sont calculées sur le même périmètre d'AAC. Les identifiants de parcelles
         changent chaque année dans le RPG : la comparaison se fait sur les surfaces, pas parcelle à parcelle.</p>
     </div>
     <div class="evo-grid" id="evo-grid"></div>
@@ -236,6 +238,6 @@
 <div class="tooltip" id="tooltip" role="tooltip"></div>
 
 <script src="assets/vendor/leaflet/leaflet.js"></script>
-<script src="assets/app.js?v=2"></script>
+<script src="assets/app.js?v=3"></script>
 </body>
 </html>

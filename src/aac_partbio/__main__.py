@@ -42,7 +42,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument(
         "etape", choices=("demo", "charger", "traiter", "controler", "exporter", "tout")
     )
-    parser.add_argument("--annee", type=int, default=2025, help="millésime du RPG (défaut 2025)")
+    parser.add_argument("--annee", type=int, default=2025, help="année des données (défaut 2025)")
     parser.add_argument("--demo", action="store_true", help="utiliser le jeu synthétique")
     parser.add_argument("--sans-aac", action="store_true", help="ne pas recharger les AAC")
     parser.add_argument("--depuis", type=int, default=1, help="reprendre au script SQL n°")
@@ -52,7 +52,7 @@ def main(argv: list[str] | None = None) -> None:
     args = parser.parse_args(argv)
 
     if args.etape == "demo":
-        # Deux millésimes synthétiques, pour montrer aussi l'évolution sur le site.
+        # Deux années fictives, pour montrer aussi l'évolution sur le site.
         args.demo = True
         # Les sorties de démonstration restent à part des vrais résultats.
         qualite.PROCESSED = export.PROCESSED = PROCESSED / "demo"

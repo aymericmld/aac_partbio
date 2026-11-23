@@ -8,7 +8,7 @@ Sur les aires d'alimentation de captage (AAC), quelles cultures trouve-t-on et q
 
 ## 2. Les données
 
-| Source | Producteur | Contenu utilisé | Millésime |
+| Source | Producteur | Contenu utilisé | Année |
 |---|---|---|---|
 | RPG Parcelles (version 4.0) | IGN, ASP | Contour, code culture, surface, attribut « constatée bio » | 2025 |
 | Parcelles CartoBio | Agence Bio | Contour, culture CPFBIO, niveau de conversion, surface | 2025 |
@@ -25,7 +25,7 @@ Jusqu'en 2023, le RPG ne contenait que les parcelles et leur culture. L'édition
 1. une parcelle constatée bio dans le RPG mais absente de CartoBio est comptée en bio, avec le statut `BIO_PAC` ;
 2. la part bio du RPG seul est calculée dans les AAC et sur l'ensemble du fichier : c'est une comparaison à base égale entre les AAC et le reste du territoire.
 
-Pour un millésime sans cet attribut, toutes les parcelles du RPG sont considérées comme conventionnelles et ces deux indicateurs restent vides.
+Pour une année plus ancienne, sans cet attribut, toutes les parcelles du RPG sont considérées comme conventionnelles et ces deux indicateurs restent vides.
 
 ## 3. Classification des cultures
 
@@ -48,7 +48,7 @@ Les deux référentiels ont chacun leur nomenclature. Pour les comparer, chaque 
 2. **Exceptions ligne à ligne.** Les groupes hétérogènes sont examinés culture par culture.
 3. **Repli explicite.** Ce qui ne correspond à aucune catégorie agronomique va dans « Autres ». Un groupe inconnu y va aussi, mais il est signalé au chargement.
 
-Les règles sont codées dans [`classification.py`](../src/aac_partbio/classification.py). Elles portent sur les **libellés** et non sur les codes, pour rester valables quand un millésime ajoute des cultures. Les référentiels classés sont écrits dans `data/reference/` à chaque chargement, pour audit.
+Les règles sont codées dans [`classification.py`](../src/aac_partbio/classification.py). Elles portent sur les **libellés** et non sur les codes, pour rester valables quand une nouvelle année ajoute des cultures. Les référentiels classés sont écrits dans `data/reference/` à chaque chargement, pour audit.
 
 ### Référentiel PAC
 
@@ -131,7 +131,7 @@ Contraintes :
 
 ## 4. Croisement des parcelles
 
-Les traitements sont sept scripts SQL dans [`sql/`](../sql), exécutés par `psql` avec des variables : millésime, noms de colonnes détectés, tampon, seuil. Ils peuvent être relus et lancés seuls.
+Les traitements sont sept scripts SQL dans [`sql/`](../sql), exécutés par `psql` avec des variables : année, noms de colonnes détectés, tampon, seuil. Ils peuvent être relus et lancés seuls.
 
 ```mermaid
 flowchart TD
@@ -178,7 +178,7 @@ Le seuil est réglable dans `config.py` (`SEUIL_RECOUVREMENT`).
 | Parcelle RPG constatée bio, non couverte par CartoBio | Parcelle RPG | `rpg` | `BIO_PAC` |
 | Autre parcelle RPG non remplacée | Parcelle RPG | `rpg` | `CONV` |
 
-La table `parcel` garde une colonne `annee` : plusieurs millésimes y cohabitent, chaque exécution ne remplace que le sien.
+La table `parcel` porte une colonne `annee` (2025). Elle est prévue pour accueillir d'autres années, chaque exécution ne remplaçant que la sienne.
 
 ### 4.5 Rattachement aux AAC
 
@@ -187,15 +187,17 @@ Une parcelle est rattachée à toute AAC qu'elle chevauche, sans tampon cette fo
 - **seule la partie intérieure est comptée** : une parcelle à cheval sur la limite n'apporte que sa surface dans l'AAC ;
 - **pas de double compte entre AAC** : des AAC voisines peuvent se superposer. Les totaux nationaux utilisent la surface de chaque parcelle dans l'union des AAC qu'elle touche (`parcel_dans_aac`).
 
+Ce cas n'est pas marginal. Dans les données 2025, 724 AAC sur 1 590 chevauchent au moins une autre AAC, et 136 000 parcelles touchent plusieurs AAC. Sans dédoublonnage, la surface agricole totale serait surestimée de 16 % (3,80 millions d'hectares au lieu de 3,28). Le contrôle qualité vérifie que le total dédoublonné n'est jamais supérieur au total additionné.
+
 Les AAC sans aucune parcelle sont conservées dans `synthese_aac`, avec une surface agricole nulle.
 
 ### 4.6 Synthèses
 
 | Table | Grain | Principaux indicateurs |
 |---|---|---|
-| `synthese_aac` | AAC × millésime | Surface de l'AAC, surface agricole, surfaces bio, AB et en conversion, part bio, catégorie dominante |
-| `synthese_categorie` | Catégorie × millésime | Surface agricole et bio, sans double compte |
-| `synthese_nationale` | Millésime | Nombre d'AAC, surfaces, part bio, part bio du RPG seul dans les AAC et sur tout le fichier |
+| `synthese_aac` | AAC | Surface de l'AAC, surface agricole, surfaces bio, AB et en conversion, part bio, catégorie dominante |
+| `synthese_categorie` | Catégorie de culture | Surface agricole et bio, sans double compte |
+| `synthese_nationale` | Ensemble des AAC | Nombre d'AAC, surfaces, part bio, part bio du RPG seul dans les AAC et sur tout le fichier |
 
 ## 5. Contrôles qualité
 
@@ -219,5 +221,5 @@ Un test d'intégration construit un scénario à la main (parcelle décalée, pa
 - **Référentiel AAC incomplet.** Seules les AAC validées par le Sandre sont diffusées.
 - **Arbitrages de classification.** Certains rattachements sont discutables, et les deux référentiels ne sont pas recoupés code à code.
 - **Seuil de recouvrement.** Un seuil de 50 % est une convention. Le chevauchement résiduel mesuré permet d'en juger l'effet.
-- **Comparaison entre années.** Les identifiants du RPG changent chaque année et le modèle de données a changé en 2025. Les évolutions se lisent en surfaces, sur le même périmètre d'AAC.
+- **Une seule année.** Les résultats décrivent 2025 ; ils ne disent rien de l'évolution du bio dans les AAC.
 - **Occupation n'est pas pratique.** La part de bio ne dit rien des pratiques des parcelles conventionnelles ni de la qualité de l'eau mesurée.

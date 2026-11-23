@@ -16,6 +16,9 @@
   const RAMPE = ["#7ab862", "#56a145", "#348a3c", "#1f6d30", "#0f4d22"];
   const SANS_SAU = "#e4e1d8";
   const SAU_MIN = 10; // ha : en dessous, la part bio est jugée fragile
+  // Une AAC « petite » a au moins une parcelle mais moins de SAU_MIN ha agricoles.
+  // On teste le nombre de parcelles et non la surface, arrondie à 0,1 ha dans les données.
+  const petite = (p) => p.nb_parcelles > 0 && p.sau_ha < SAU_MIN;
   const classe = (p) => SEUILS.findIndex((s) => p < s) === -1 ? SEUILS.length : SEUILS.findIndex((s) => p < s);
   const couleur = (p) => (p == null ? SANS_SAU : RAMPE[classe(p)]);
 
@@ -50,10 +53,10 @@
       <b>${pct(nat.part_bio_pac_aac)}</b> de la surface des parcelles qui touchent une AAC, contre
       <b>${pct(nat.part_bio_pac_france)}</b> sur l'ensemble du RPG chargé. CartoBio ajoute les parcelles bio hors PAC.`;
   } else {
-    $("compare-line").textContent = `Millésime ${annee} du RPG et des parcelles bio, sur ${fmtInt.format(nat.nb_parcelles_aac)} parcelles.`;
+    $("compare-line").textContent = `Données ${annee} du RPG et des parcelles bio, sur ${fmtInt.format(nat.nb_parcelles_aac)} parcelles.`;
   }
-  $("pill-rpg").textContent = `millésime ${annee}`;
-  $("pill-bio").textContent = `millésime ${annee}`;
+  $("pill-rpg").textContent = `données ${annee}`;
+  $("pill-bio").textContent = `données ${annee}`;
   $("m-buffer").textContent = meta.buffer_m;
   $("m-seuil").textContent = pct(meta.seuil_recouvrement, 0);
   $("src-rpg").href = meta.sources.rpg;
@@ -61,6 +64,12 @@
   $("src-aac").href = meta.sources.aac;
   $("footer-date").textContent = `Données générées le ${new Date(meta.genere_le).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}${meta.demo ? " (démonstration)" : ""}.`;
 
+  const ch = site.chevauchements;
+  if (ch) {
+    $("m-chevauch").innerHTML = `${fmtInt.format(ch.aac_chevauchantes)} AAC en chevauchent au moins une autre, et
+      ${fmtInt.format(ch.parcelles_multi_aac)} parcelles touchent plusieurs AAC. Additionnée AAC par AAC, la surface agricole
+      atteindrait ${fmtInt.format(ch.sau_additionnee_ha)} ha, soit ${pct(ch.sau_additionnee_ha / nat.sau_aac_ha - 1, 0)} de plus que le total réel.`;
+  }
   const q = site.qualite[annee] || {};
   $("quality").innerHTML = [
     [pct(q.taux_appariement_bio, 0), "des parcelles bio retrouvées dans le RPG"],
@@ -129,8 +138,8 @@
   if (classees.length) {
     const top = classees[0];
     const plusBio = [...classees].filter((c) => c.sau_ha > 0.02 * sau).sort((a, b) => b.part_bio - a.part_bio)[0];
-    $("cultures-texte").innerHTML = `<b>${esc(top.categorie)}</b> occupent ${pct(top.sau_ha / sau, 0)} de la surface agricole des AAC.
-      Parmi les catégories qui pèsent au moins 2 % de la surface, la plus engagée en bio est
+    $("cultures-texte").innerHTML = `La catégorie des <b>${esc(top.categorie.toLowerCase())}</b> occupe ${pct(top.sau_ha / sau, 0)} de la surface agricole des AAC.
+      Parmi les catégories qui pèsent au moins 2 % de la surface, la plus engagée en bio est la catégorie des
       <b>${esc(plusBio.categorie.toLowerCase())}</b>, avec ${pct(plusBio.part_bio, 0)} de surfaces bio ou en conversion.`;
   }
 
@@ -242,19 +251,20 @@
   const colonnes = [
     ["nom", "AAC", (p) => `${esc(p.nom || "–")}<div class="muted">${esc(p.cdaac)}</div>`],
     ["categorie_dominante", "Culture dominante", (p) => esc(p.categorie_dominante || "–")],
-    ["sau_ha", "Surface agricole", (p) => ha(p.sau_ha), "r"],
+    ["sau_ha", "Surface agricole", (p) => `${petite(p) ? `${fmt1.format(p.sau_ha)} ha` : ha(p.sau_ha)}${petite(p) ? '<span class="badge-petite" title="Part bio sensible à une seule parcelle">moins de 10 ha</span>' : ""}`, "r"],
     ["part_sau", "Part agricole", (p) => pct(p.part_sau, 0), "r"],
-    ["part_bio", "Part bio", (p) => `<span class="minibar" style="width:${Math.round((p.part_bio || 0) * 60)}px"></span>${pct(p.part_bio)}${p.sau_ha && p.sau_ha < SAU_MIN ? " *" : ""}`, "r"],
+    ["part_bio", "Part bio", (p) => `<span class="minibar" style="width:${Math.round((p.part_bio || 0) * 60)}px"></span>${pct(p.part_bio)}`, "r"],
   ];
   if (prec) colonnes.push(["evo", `Évol. vs ${prec}`, (p) => (p.evo == null ? "–" : `<span class="delta ${p.evo >= 0 ? "up" : "down"}">${pts(p.evo)}</span>`), "r"]);
   features.forEach((f) => {
     const p = f.properties;
     p.evo = p.part_bio != null && p.part_bio_prec != null ? p.part_bio - p.part_bio_prec : null;
   });
-  const tableau = { tri: "sau_ha", asc: false, page: 0, taille: 15 };
+  const tableau = { tri: "sau_ha", asc: false, page: 0, taille: 15, petites: false };
   function dessinerTableau() {
     const lignes = features.map((f) => f.properties)
       .filter((p) => !filtre || p.categorie_dominante === filtre)
+      .filter((p) => !tableau.petites || petite(p))
       .sort((a, b) => {
         const va = a[tableau.tri], vb = b[tableau.tri];
         if (va == null) return 1;
@@ -283,6 +293,19 @@
       $("carte").scrollIntoView({ behavior: "smooth" });
     }));
   }
+  // Petites AAC : leur part bio bascule avec une seule parcelle. Triées par
+  // surface décroissante, elles sont en fin de tableau : un filtre les isole.
+  const petites = features.filter((f) => petite(f.properties)).length;
+  const sansSau = features.filter((f) => f.properties.nb_parcelles === 0).length;
+  $("petites-texte").innerHTML = `<b>${fmtInt.format(petites)} AAC</b> comptent moins de ${SAU_MIN} ha de surface agricole :
+    leur part de bio peut basculer avec une seule parcelle, elles sont marquées d'une étiquette.
+    ${fmtInt.format(sansSau)} autres AAC n'ont aucune parcelle agricole connue.`;
+  $("filtre-petites-label").textContent = `Afficher seulement les ${fmtInt.format(petites)} AAC de moins de ${SAU_MIN} ha agricoles`;
+  $("filtre-petites").addEventListener("change", (e) => {
+    tableau.petites = e.target.checked;
+    tableau.page = 0;
+    dessinerTableau();
+  });
   dessinerTableau();
 
   // ------------------------------------------------------------ évolution

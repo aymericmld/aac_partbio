@@ -174,9 +174,9 @@ def charger_referentiels(sources: Sources, annee: int) -> dict[str, int]:
 
 
 def charger(annee: int, sources: Sources, avec_aac: bool = True) -> None:
-    """Charge toutes les sources d'un millésime.
+    """Charge toutes les sources d'une année.
 
-    avec_aac=False évite de recharger les AAC, communes à tous les millésimes.
+    avec_aac=False évite de recharger les AAC, qui ne dépendent pas de l'année.
     """
     if avec_aac:
         ogr2ogr(sources.aac, "src_aac")

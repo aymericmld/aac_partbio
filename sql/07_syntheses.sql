@@ -7,9 +7,9 @@
 --   qui sont exportées en CSV et affichées sur la page web.
 --
 -- Ce qu'il lit   : aac, parcel, parcel_aac, parcel_dans_aac, :t_rpg_ign, :src_rpg
--- Ce qu'il crée  : synthese_aac        une ligne par AAC et par millésime
+-- Ce qu'il crée  : synthese_aac        une ligne par AAC
 --                  synthese_categorie  une ligne par catégorie de culture
---                  synthese_nationale  une ligne par millésime : chiffres clés
+--                  synthese_nationale  une ligne : les chiffres clés
 --
 -- Vocabulaire :
 --   SAU       surface agricole utile : ici, la surface des parcelles agricoles
@@ -137,7 +137,7 @@ GROUP BY p.categorie;
 
 
 -- ---------------------------------------------------------------------
--- 3. Chiffres clés du millésime
+-- 3. Chiffres clés
 -- ---------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS :"schema".synthese_nationale (
     annee                    integer PRIMARY KEY,

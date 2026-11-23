@@ -12,8 +12,9 @@
 -- Ce qu'il lit   : :t_rpg_bio, :t_rpg_ign, :t_appariement, :t_ign_remplace
 -- Ce qu'il crée  : parcel (si elle n'existe pas encore)
 --
--- La table parcel peut contenir plusieurs millésimes (2025, 2026...) grâce à
--- sa colonne annee. Chaque exécution efface puis réécrit seulement son année.
+-- La colonne annee indique l'année des données (2025 dans ce projet). Si l'on
+-- traitait un jour une autre année, ses lignes s'ajouteraient à côté :
+-- chaque exécution efface puis réécrit seulement son année.
 --
 -- Signification des colonnes :
 --   source      cartobio_rpg       parcelle bio retrouvée dans le RPG
@@ -32,10 +33,10 @@
 -- 1. Créer la table si c'est la première exécution
 -- ---------------------------------------------------------------------
 -- CREATE TABLE IF NOT EXISTS ne fait rien si la table existe déjà : les
--- autres millésimes déjà calculés sont préservés.
+-- autres années déjà calculées sont préservées.
 CREATE TABLE IF NOT EXISTS :"schema".parcel (
     id                bigserial PRIMARY KEY,     -- numéro automatique
-    annee             integer   NOT NULL,        -- millésime traité
+    annee             integer   NOT NULL,        -- année des données
     id_parcel         text      NOT NULL,        -- identifiant d'origine (RPG ou « AB... »)
     source            text      NOT NULL,        -- voir l'en-tête
     id_rpg_apparie    text,                      -- parcelle RPG correspondante, si elle existe
@@ -54,7 +55,7 @@ CREATE INDEX IF NOT EXISTS parcel_annee_idx ON :"schema".parcel (annee);
 
 
 -- ---------------------------------------------------------------------
--- 2. Effacer le millésime en cours de calcul, pour pouvoir relancer
+-- 2. Effacer l'année en cours de calcul, pour pouvoir relancer le script
 -- ---------------------------------------------------------------------
 DELETE FROM :"schema".parcel WHERE annee = :annee;
 
