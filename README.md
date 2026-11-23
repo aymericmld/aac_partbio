@@ -9,7 +9,7 @@ Ce projet croise trois sources ouvertes dans PostgreSQL/PostGIS : le Registre pa
 | [Page de restitution](https://aymericmld.github.io/aac_partbio/) | Carte, cultures, classement des AAC |
 | [Méthodologie détaillée](docs/METHODOLOGIE.md) | Classification, appariement, contrôles et limites |
 | [Récupérer les données](docs/DONNEES.md) | Où télécharger chaque source et où la déposer |
-| [Comprendre le code](docs/COMPRENDRE_LE_CODE.md) | Visite guidée des scripts, pour qui découvre SQL, PostGIS ou Python |
+| [Comprendre le code](docs/COMPRENDRE_LE_CODE.md) | Visite guidée des scripts : notions, parcours des données, ordre de lecture |
 
 > **État du projet : premier jet.** Les résultats ont été calculés le 19 novembre 2026 sur le **RPG 2025** (version 4.0), les parcelles CartoBio 2025 et les 1 590 AAC de métropole diffusées par le Sandre. La méthode et la grille de classement des cultures restent à affiner : voir [Pistes d'amélioration](#pistes-damélioration).
 

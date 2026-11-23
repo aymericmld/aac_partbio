@@ -1,6 +1,6 @@
 # Comprendre le code
 
-Ce guide est une visite du projet pour quelqu'un qui découvre SQL, PostGIS ou Python. Il explique dans quel ordre lire les fichiers, ce que fait chacun, et les quelques notions à connaître pour les suivre. Le détail des choix de méthode est dans la [méthodologie](METHODOLOGIE.md).
+Ce guide est une visite du projet. Il explique dans quel ordre lire les fichiers, ce que fait chacun, et les quelques notions à connaître pour les suivre. Le détail des choix de méthode est dans la [méthodologie](METHODOLOGIE.md).
 
 ## 1. L'idée en une phrase
 
