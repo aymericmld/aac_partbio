@@ -190,16 +190,6 @@ Ce premier jet pose la chaîne complète ; plusieurs points restent à travaille
 - **Croiser avec la qualité de l'eau** mesurée aux captages (nitrates, pesticides), pour passer de l'occupation des sols aux enjeux.
 - **Traiter l'outre-mer** avec les fichiers RPG des départements d'outre-mer.
 
-## Compétences démontrées
-
-| Domaine | Mise en œuvre |
-|---|---|
-| SIG | PostGIS : validation, subdivision, index GiST, intersections et unions, Lambert 93 |
-| Appariement | Recouvrement surfacique entre deux référentiels parcellaires, règle de priorité, mesure du résiduel |
-| Référentiels | Classification documentée de deux nomenclatures de cultures, contrôle de concordance |
-| Qualité | Contrôles bloquants, rapport de diagnostics, scénario de test construit à la main |
-| Restitution | Page web Leaflet sans framework, carte choroplèthe, tableau triable |
-
 ## Sources
 
 | Source | Producteur | Licence |
