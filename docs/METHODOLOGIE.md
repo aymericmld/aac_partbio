@@ -46,7 +46,7 @@ Les deux référentiels ont chacun leur nomenclature. Pour les comparer, chaque 
 
 1. **Par groupe.** Chaque groupe du référentiel (groupe PAC, groupe et sous-groupe CPFBIO) est rattaché à une catégorie selon son sens agronomique.
 2. **Exceptions ligne à ligne.** Les groupes hétérogènes sont examinés culture par culture.
-3. **Repli explicite.** Ce qui ne correspond à aucune catégorie agronomique va dans « Autres ». Un groupe inconnu y va aussi, mais il est signalé au chargement.
+3. **Repli explicite.** Ce qui ne correspond à aucune catégorie agronomique va dans « Autres ». Un groupe inconnu y va aussi, et un message d'avertissement le nomme dans le terminal au moment du chargement, pour qu'on décide s'il faut lui ajouter une règle.
 
 Les règles sont codées dans [`classification.py`](../src/aac_partbio/classification.py). Elles portent sur les **libellés** et non sur les codes, pour rester valables quand une nouvelle année ajoute des cultures. Les référentiels classés sont écrits dans `data/reference/` à chaque chargement, pour audit.
 

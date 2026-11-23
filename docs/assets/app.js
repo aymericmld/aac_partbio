@@ -298,7 +298,8 @@
   const petites = features.filter((f) => petite(f.properties)).length;
   const sansSau = features.filter((f) => f.properties.nb_parcelles === 0).length;
   $("petites-texte").innerHTML = `<b>${fmtInt.format(petites)} AAC</b> comptent moins de ${SAU_MIN} ha de surface agricole :
-    leur part de bio peut basculer avec une seule parcelle, elles sont marquées d'une étiquette.
+    leur part de bio peut basculer avec une seule parcelle (une AAC de 5 ha avec une parcelle bio de 2 ha affiche 40 % de bio).
+    Elles portent l'étiquette jaune « moins de 10 ha » dans le tableau, et la case ci-dessous permet de n'afficher qu'elles.
     ${fmtInt.format(sansSau)} autres AAC n'ont aucune parcelle agricole connue.`;
   $("filtre-petites-label").textContent = `Afficher seulement les ${fmtInt.format(petites)} AAC de moins de ${SAU_MIN} ha agricoles`;
   $("filtre-petites").addEventListener("change", (e) => {
