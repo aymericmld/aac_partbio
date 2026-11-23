@@ -29,7 +29,13 @@ CARREAU_M = 20_000
 
 
 def emprise_aac(chemin_aac: Path, etendue: tuple[float, float, float, float]):
-    """AAC en Lambert 93 limitées à l'étendue du RPG, et leur emprise tamponnée."""
+    """Lit les AAC et renvoie (les AAC retenues, leur zone de travail fusionnée).
+
+    `etendue` est le rectangle couvert par le RPG (xmin, ymin, xmax, ymax) :
+    les AAC hors de ce rectangle (outre-mer pour un RPG métropolitain) sont
+    écartées. La zone de travail est la même qu'à l'étape SQL 01 : les AAC
+    élargies de BUFFER_M mètres, fusionnées en une seule forme.
+    """
     aac = gpd.read_file(chemin_aac).to_crs(2154)
     aac["geometry"] = aac.geometry.make_valid()
     cadre = shapely.box(*etendue)
@@ -39,6 +45,12 @@ def emprise_aac(chemin_aac: Path, etendue: tuple[float, float, float, float]):
 
 
 def carreaux(emprise) -> list:
+    """Découpe le rectangle englobant de l'emprise en carrés de CARREAU_M mètres.
+
+    Seuls les carrés qui touchent l'emprise sont gardés. Lire le RPG carré par
+    carré permet de ne jamais charger en mémoire plus qu'un petit morceau de
+    France à la fois.
+    """
     xmin, ymin, xmax, ymax = emprise.bounds
     grille = [
         shapely.box(x, y, x + CARREAU_M, y + CARREAU_M)
@@ -49,7 +61,12 @@ def carreaux(emprise) -> list:
 
 
 def filtrer(source: Path, emprise, sortie: Path, cle: str, par_fichier: int = 400_000) -> int:
-    """Copie les entités de `source` qui intersectent l'emprise, en Lambert 93.
+    """Copie dans de nouveaux fichiers les entités de `source` qui touchent l'emprise.
+
+    Pour chaque carré : lecture des entités du carré (rapide grâce à l'index
+    spatial du GeoPackage), puis test précis avec la forme de l'emprise. Une
+    parcelle à cheval sur deux carrés est lue deux fois : l'ensemble `vus`
+    retient les identifiants déjà écrits pour ne pas la copier en double.
 
     La sortie est découpée en fichiers `<sortie>_NN.gpkg` d'au plus `par_fichier`
     entités, plus faciles à transférer qu'un seul gros fichier.
@@ -90,7 +107,11 @@ def filtrer(source: Path, emprise, sortie: Path, cle: str, par_fichier: int = 40
 
 
 def stats_rpg(source: Path) -> dict:
-    """Part de surface constatée bio sur tout le RPG (sans géométrie)."""
+    """Part de surface constatée bio sur tout le RPG.
+
+    On ne lit que deux colonnes et pas les géométries : c'est rapide et peu
+    gourmand en mémoire, même pour 10 millions de parcelles.
+    """
     df = pyogrio.read_dataframe(source, columns=["surf_parc", "bio"], read_geometry=False)
     surface = float(df.surf_parc.sum())
     bio = float(df.loc[df.bio.astype(bool), "surf_parc"].sum())

@@ -81,7 +81,7 @@ Exceptions dans « Autres surfaces » : semences de céréales, légumineuses, o
 
 ### Multicultures CartoBio
 
-CartoBio peut associer plusieurs codes à une parcelle, séparés par une virgule. Le script de 2024 joignait la chaîne complète au référentiel : ces parcelles restaient sans catégorie. La première culture déclarée sert désormais de culture principale, et la parcelle garde un indicateur `multiculture`.
+CartoBio peut associer plusieurs codes à une parcelle, séparés par une virgule. Comparée telle quelle au référentiel, la chaîne « code1,code2 » ne correspond à aucun code : la parcelle resterait sans catégorie. La première culture déclarée sert donc de culture principale, et la parcelle garde un indicateur `multiculture`.
 
 ### Contrôle de cohérence
 
@@ -149,7 +149,7 @@ flowchart TD
 
 ### 4.1 Emprise
 
-Les AAC sont rendues valides, regroupées par code et projetées en Lambert 93 (EPSG:2154). Un tampon de 500 m sert à sélectionner les parcelles à apparier, y compris celles qui débordent de l'AAC. Le script de 2024 fusionnait toutes les AAC tamponnées en un seul polygone national ; chaque test d'intersection portait alors sur un objet géant. Chaque AAC tamponnée est maintenant découpée en morceaux d'au plus 256 sommets (`ST_Subdivide`), que l'index spatial filtre efficacement.
+Les AAC sont rendues valides, regroupées par code et projetées en Lambert 93 (EPSG:2154). Un tampon de 500 m sert à sélectionner les parcelles à apparier, y compris celles qui débordent de l'AAC. Plutôt que de fusionner toutes les AAC en un seul polygone national, sur lequel chaque test d'intersection serait très lent, chaque AAC tamponnée est découpée en morceaux d'au plus 256 sommets (`ST_Subdivide`), que l'index spatial filtre efficacement.
 
 ### 4.2 Préparation
 
@@ -157,12 +157,12 @@ Les géométries sont corrigées (`ST_MakeValid`), réduites à leurs polygones 
 
 ### 4.3 Appariement par recouvrement
 
-C'est le principal changement par rapport à 2024. L'ancien script retenait, pour chaque parcelle bio, la parcelle RPG au **centroïde le plus proche**. Deux erreurs en découlaient :
+C'est le cœur de la méthode. Une approche plus simple consisterait à associer chaque parcelle bio à la parcelle RPG dont le **centroïde** (le point central) est le plus proche. Elle produit deux erreurs :
 
-- une parcelle RPG voisine pouvait être retenue alors qu'une autre chevauchait davantage la parcelle bio ;
-- une parcelle RPG recouverte par une parcelle bio, mais qui n'était pas sa « plus proche », restait en plus de la parcelle bio : sa surface était comptée deux fois.
+- une parcelle RPG voisine peut être retenue alors qu'une autre chevauche davantage la parcelle bio ;
+- une parcelle RPG recouverte par une parcelle bio, mais qui n'est pas sa « plus proche », reste en plus de la parcelle bio : sa surface est comptée deux fois.
 
-Le traitement mesure désormais la **surface réellement commune** entre chaque parcelle bio et chaque parcelle RPG qu'elle touche.
+Le traitement mesure donc la **surface réellement commune** entre chaque parcelle bio et chaque parcelle RPG qu'elle touche.
 
 - **Appariement d'une parcelle bio :** la parcelle RPG de plus fort recouvrement, retenue si la surface commune atteint 50 % de la plus petite des deux. Rapporter à la plus petite permet d'apparier une parcelle découpée en deux dans CartoBio.
 - **Remplacement d'une parcelle RPG :** elle est remplacée si l'ensemble des parcelles bio qui la chevauchent couvre au moins 50 % de sa surface.
@@ -182,12 +182,12 @@ La table `parcel` garde une colonne `annee` : plusieurs millésimes y cohabitent
 
 ### 4.5 Rattachement aux AAC
 
-Une parcelle est rattachée à toute AAC qu'elle chevauche, sans tampon cette fois. Deux corrections par rapport à 2024 :
+Une parcelle est rattachée à toute AAC qu'elle chevauche, sans tampon cette fois. Deux règles :
 
 - **seule la partie intérieure est comptée** : une parcelle à cheval sur la limite n'apporte que sa surface dans l'AAC ;
 - **pas de double compte entre AAC** : des AAC voisines peuvent se superposer. Les totaux nationaux utilisent la surface de chaque parcelle dans l'union des AAC qu'elle touche (`parcel_dans_aac`).
 
-Le script de 2024 utilisait une jointure à droite pour garder les AAC sans parcelle. Ces AAC sont désormais conservées dans `synthese_aac`, avec une surface agricole nulle.
+Les AAC sans aucune parcelle sont conservées dans `synthese_aac`, avec une surface agricole nulle.
 
 ### 4.6 Synthèses
 

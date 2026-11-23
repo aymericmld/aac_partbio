@@ -9,8 +9,9 @@ Ce projet croise trois sources ouvertes dans PostgreSQL/PostGIS : le Registre pa
 | [Page de restitution](https://aymericmld.github.io/aac_partbio/) | Carte, cultures, classement des AAC, évolution |
 | [Méthodologie détaillée](docs/METHODOLOGIE.md) | Classification, appariement, contrôles et limites |
 | [Récupérer les données](docs/DONNEES.md) | Où télécharger chaque source et où la déposer |
+| [Comprendre le code](docs/COMPRENDRE_LE_CODE.md) | Visite guidée des scripts, pour qui découvre SQL, PostGIS ou Python |
 
-> **État du projet :** résultats calculés le 19 novembre 2026 sur le **RPG 2025** (version 4.0), les parcelles CartoBio 2025 et les 1 590 AAC de métropole diffusées par le Sandre.
+> **État du projet : premier jet.** Les résultats ont été calculés le 19 novembre 2026 sur le **RPG 2025** (version 4.0), les parcelles CartoBio 2025 et les 1 590 AAC de métropole diffusées par le Sandre. La méthode et la grille de classement des cultures restent à affiner : voir [Pistes d'amélioration](#pistes-damélioration).
 
 ## En bref
 
@@ -18,14 +19,6 @@ Ce projet croise trois sources ouvertes dans PostgreSQL/PostGIS : le Registre pa
 - À base égale, le RPG constate **7,7 %** de bio sur les parcelles qui touchent une AAC, contre **10,4 %** sur l'ensemble de la métropole.
 - Les **céréales et oléoprotéagineux** couvrent 61 % de la surface agricole des AAC, mais seulement 4,4 % en bio.
 - Une AAC sur quatre n'a **aucune parcelle bio** ; la moitié en compte moins de 3,6 %.
-
-## Ce qui a changé depuis la version 2024
-
-- **Données 2025.** RPG 2025, parcelles CartoBio mises à jour en juin 2026, extraction courante des AAC. Le RPG 4.0 porte désormais l'attribut « constatée bio », utilisé pour compléter CartoBio et pour comparer les AAC au reste du territoire.
-- **Appariement par recouvrement.** La parcelle RPG au centroïde le plus proche est remplacée par une mesure de la surface réellement commune, ce qui supprime des doubles comptes. Voir la [méthodologie](docs/METHODOLOGIE.md#43-appariement-par-recouvrement).
-- **Surfaces justes dans les AAC.** Seule la partie d'une parcelle située dans l'AAC est comptée, et une parcelle à cheval sur deux AAC n'est comptée qu'une fois au total.
-- **Multicultures CartoBio.** Les parcelles à plusieurs codes cultures reçoivent la catégorie de leur première culture au lieu de rester sans catégorie.
-- **Script découpé et paramétré.** Le script unique devient sept étapes SQL relançables, pilotées par une ligne de commande Python, avec contrôles qualité bloquants et tests. Le script d'origine est conservé dans [`legacy/`](legacy/parcel_2024.sql).
 
 ## La méthode
 
@@ -91,7 +84,7 @@ Quelques très grandes AAC, qui couvrent des bassins versants entiers, pèsent l
 | Surface sans catégorie | 3 ha |
 | Catégorie identique entre CartoBio et le RPG sur les parcelles appariées | 85,7 % de la surface |
 
-Les règles de classement codées reproduisent exactement les fichiers classés à la main pour la version 2024 : 144 codes PAC sur 144 et 285 codes CPFBIO sur 285. L'écart de concordance vient donc de la grille elle-même. Deux cas expliquent l'essentiel : les surfaces pastorales collectives, classées « Autres » côté CPFBIO mais « Prairies » côté PAC (environ 18 000 ha), et les mélanges de céréales ou de légumineuses, classés en céréales dans CPFBIO et en fourrage dans le RPG. Aligner ces deux cas est la prochaine amélioration de la grille.
+Les règles de classement codées reproduisent exactement les référentiels classés à la main lors de la conception de la grille : 144 codes PAC sur 144 et 285 codes CPFBIO sur 285. L'écart de concordance vient donc de la grille elle-même. Deux cas expliquent l'essentiel : les surfaces pastorales collectives, classées « Autres » côté CPFBIO mais « Prairies » côté PAC (environ 18 000 ha), et les mélanges de céréales ou de légumineuses, classés en céréales dans CPFBIO et en fourrage dans le RPG. Aligner ces deux cas est la première piste d'amélioration ci-dessous.
 
 ### Fichiers produits
 
@@ -125,10 +118,10 @@ Renseigner la connexion PostgreSQL dans `.env`, déposer les sources selon [DONN
 .venv/bin/python -m aac_partbio tout --annee 2025 --gpkg
 ```
 
-Pour comparer deux millésimes sur le même périmètre, traiter aussi 2024 sans recharger les AAC :
+Pour ajouter un autre millésime et suivre l'évolution sur le même périmètre d'AAC, le traiter sans recharger les AAC (ici 2026, une fois publié) :
 
 ```bash
-.venv/bin/python -m aac_partbio tout --annee 2024 --sans-aac
+.venv/bin/python -m aac_partbio tout --annee 2026 --sans-aac
 ```
 
 Sur une machine modeste, le RPG complet (plus de 6 Go) peut d'abord être réduit aux parcelles proches des AAC, sans PostgreSQL. La commande calcule aussi la part bio du RPG complet, reprise ensuite dans les indicateurs :
@@ -175,10 +168,21 @@ tests/             Tests unitaires et scénario d'intégration
 docs/              Page web (GitHub Pages), méthodologie, guide des données
 data/reference/    Référentiels de cultures classés (générés au chargement)
 data/processed/    Synthèses et rapports qualité
-legacy/            Script SQL de la version 2024
 ```
 
+Chaque script SQL et chaque module Python commence par un en-tête qui explique son rôle, ce qu'il lit et ce qu'il produit. Pour un ordre de lecture, voir [Comprendre le code](docs/COMPRENDRE_LE_CODE.md).
+
 La page est servie par GitHub Pages depuis le dossier `docs/` de la branche `main` (Settings → Pages → Deploy from a branch → `/docs`).
+
+## Pistes d'amélioration
+
+Ce premier jet pose la chaîne complète ; plusieurs points restent à travailler :
+
+- **Aligner la grille de cultures** sur les deux cas de discordance repérés : surfaces pastorales collectives et mélanges céréales-légumineuses.
+- **Tester la sensibilité au seuil de recouvrement** (50 %) : relancer à 30 % et 70 % et comparer les résultats.
+- **Ajouter un millésime** pour mesurer une évolution sur le même périmètre d'AAC.
+- **Croiser avec la qualité de l'eau** mesurée aux captages (nitrates, pesticides), pour passer de l'occupation des sols aux enjeux.
+- **Traiter l'outre-mer** avec les fichiers RPG des départements d'outre-mer.
 
 ## Compétences démontrées
 

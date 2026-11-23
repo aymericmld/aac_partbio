@@ -1,8 +1,18 @@
-"""Jeu de données synthétique au format des vraies sources.
+"""Fabrique un faux jeu de données, au format des vraies sources.
 
-Il sert à tester la chaîne de bout en bout et à prévisualiser le site sans
-télécharger plusieurs gigaoctets. Les AAC, parcelles et cultures sont
-inventées : aucun chiffre issu de ce jeu ne décrit la réalité.
+À quoi ça sert ?
+- tester toute la chaîne en quelques secondes, sans télécharger plusieurs
+  gigaoctets de données ;
+- prévisualiser la page web ;
+- vérifier que le code réagit bien aux cas difficiles, volontairement
+  placés dans ce jeu : parcelles bio décalées de quelques mètres ou découpées
+  en deux, parcelles bio absentes du RPG, codes cultures inconnus, deux AAC
+  qui se superposent.
+
+Les AAC, les parcelles et les cultures sont inventées : aucun chiffre issu
+de ce jeu ne décrit la réalité. Le hasard est « graine » : avec la même graine,
+on obtient toujours exactement les mêmes données, ce qui rend les tests
+reproductibles.
 """
 
 from __future__ import annotations
@@ -129,6 +139,13 @@ def _poly(coords: list) -> dict:
 
 
 def generer(annee: int = 2025, graine: int = 2025, dossier: Path | None = None) -> Sources:
+    """Écrit les cinq fichiers sources d'un millésime fictif et renvoie leurs chemins.
+
+    Pour chaque territoire de TERRITOIRES : deux AAC aux contours irréguliers,
+    puis une grille de parcelles rectangulaires autour d'elles. Chaque parcelle
+    reçoit une culture tirée au sort selon le mélange du territoire ; une partie
+    devient bio et est recopiée, légèrement décalée, dans le faux CartoBio.
+    """
     # Géométries identiques d'une année à l'autre, attributs propres à l'année.
     rng_geo = random.Random(graine)
     rng = random.Random(graine * 10_000 + annee)

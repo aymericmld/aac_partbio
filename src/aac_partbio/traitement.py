@@ -1,10 +1,16 @@
-"""Enchaîne les scripts SQL d'un millésime avec les colonnes détectées."""
+"""Étape « traiter » : exécuter les sept scripts SQL dans l'ordre.
+
+Les scripts du dossier sql/ contiennent des variables (:annee, :schema,
+:rpg_id...). Ce module calcule leurs valeurs pour le millésime demandé, puis
+lance chaque script avec psql, l'outil en ligne de commande de PostgreSQL.
+"""
 
 from __future__ import annotations
 
 from . import chargement, db
 from .config import BUFFER_M, SCHEMA, SEUIL_RECOUVREMENT
 
+# Ordre d'exécution : chaque script utilise les tables créées par les précédents.
 ETAPES = (
     "01_aac_emprise.sql",
     "02_rpg_ign.sql",
@@ -17,6 +23,18 @@ ETAPES = (
 
 
 def variables(annee: int, colonnes: dict[str, str | None]) -> dict[str, object]:
+    """Valeurs à donner aux variables des scripts SQL.
+
+    `colonnes` vient de chargement.detecter : c'est le nom réel des colonnes
+    dans les sources chargées. Les tables intermédiaires portent l'année dans
+    leur nom (rpg_ign_2025...) pour que deux millésimes ne s'écrasent pas.
+    """
+    # Nom de l'AAC : si plusieurs colonnes de nom existent (nom d'usage, nom
+    # administratif), on prend la première non vide. Cela produit une
+    # expression SQL du type
+    #   COALESCE(NULLIF(trim(src."nomdeaacusage"::text), ''), NULLIF(...))
+    # où NULLIF transforme un texte vide en NULL, et COALESCE garde la
+    # première valeur non NULL.
     noms = colonnes.get("aac_noms") or ([colonnes["aac_nom"]] if colonnes["aac_nom"] else [])
     nom_expr = (
         "COALESCE(" + ", ".join(f"NULLIF(trim(src.\"{n}\"::text), '')" for n in noms) + ")"
@@ -45,6 +63,11 @@ def variables(annee: int, colonnes: dict[str, str | None]) -> dict[str, object]:
 
 
 def traiter(annee: int, depuis: int = 1) -> dict[str, float]:
+    """Exécute les scripts SQL du millésime et renvoie la durée de chacun.
+
+    `depuis` permet de reprendre à un script donné : depuis=4 relance les
+    scripts 04 à 07 sans refaire 01 à 03, utile après une correction.
+    """
     colonnes = chargement.detecter(annee)
     print("colonnes retenues :", colonnes)
     if colonnes["rpg_bio"] is None:

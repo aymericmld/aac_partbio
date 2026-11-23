@@ -1,6 +1,17 @@
-"""Ligne de commande : python -m aac_partbio <étape> [--annee AAAA] [--demo].
+"""Point d'entrée du projet : la commande `python -m aac_partbio`.
 
-Étapes : charger, traiter, controler, exporter, tout, demo.
+Usage : python -m aac_partbio <étape> [--annee AAAA] [options]
+
+Les étapes, dans l'ordre où elles s'enchaînent :
+  charger    copie les fichiers sources dans PostgreSQL (chargement.py)
+  traiter    exécute les scripts SQL 01 à 07 (traitement.py)
+  controler  vérifie la cohérence des résultats (qualite.py)
+  exporter   écrit les CSV et les données de la page web (export.py)
+  tout       les quatre étapes à la suite
+  demo       fabrique de fausses données et lance tout dessus (demo.py)
+
+Ce fichier ne contient pas de calcul : il lit les options tapées par
+l'utilisateur et appelle les modules dans le bon ordre.
 """
 
 from __future__ import annotations
@@ -13,6 +24,7 @@ from .config import PROCESSED, RAW, Sources, sources_par_defaut
 
 
 def _sources(args: argparse.Namespace) -> Sources:
+    """Chemins des fichiers sources : ceux passés en option, sinon les chemins par défaut."""
     defaut = sources_par_defaut(args.annee, RAW / "demo" if args.demo else RAW)
     return Sources(
         rpg=Path(args.rpg) if args.rpg else defaut.rpg,
@@ -24,6 +36,8 @@ def _sources(args: argparse.Namespace) -> Sources:
 
 
 def main(argv: list[str] | None = None) -> None:
+    # argparse décrit les options acceptées et produit l'aide affichée par
+    # `python -m aac_partbio --help`.
     parser = argparse.ArgumentParser(prog="aac_partbio", description=__doc__)
     parser.add_argument(
         "etape", choices=("demo", "charger", "traiter", "controler", "exporter", "tout")
@@ -50,10 +64,14 @@ def main(argv: list[str] | None = None) -> None:
             qualite.controler(annee)
         export.exporter(demo=True)
         return
+    # Chaque bloc ci-dessous s'exécute si l'étape demandée le concerne :
+    # « tout » passe donc dans les quatre.
     if args.etape in ("charger", "tout"):
         chargement.charger(args.annee, _sources(args), avec_aac=not args.sans_aac)
     if args.etape in ("traiter", "tout"):
         traitement.traiter(args.annee, depuis=args.depuis)
+        # Si le RPG a été pré-filtré autour des AAC, la part bio « France » se
+        # reprend du fichier de statistiques calculé sur le RPG complet.
         chargement.appliquer_stats_nationales(args.annee, _sources(args))
     if args.etape in ("controler", "tout"):
         qualite.controler(args.annee)

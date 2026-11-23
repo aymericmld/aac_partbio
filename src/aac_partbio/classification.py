@@ -1,9 +1,20 @@
 """Classement des cultures des deux référentiels dans 8 catégories communes.
 
-Les règles reprennent la classification documentée dans docs/METHODOLOGIE.md :
-d'abord un rattachement par groupe, puis des exceptions ligne à ligne pour les
-groupes hétérogènes. Elles s'appuient sur les libellés plutôt que sur les codes,
-pour rester valables quand un millésime ajoute des codes.
+Pourquoi ? Le RPG et CartoBio décrivent les cultures avec deux listes de
+codes différentes (codes PAC d'un côté, codes CPFBIO de l'autre). Pour les
+comparer et les additionner, chaque code est rangé dans l'une des 8 mêmes
+catégories (céréales, prairies, vignes...).
+
+Comment ? Les règles reprennent la classification de docs/METHODOLOGIE.md :
+1. chaque groupe de cultures est rattaché à une catégorie (ex. le groupe PAC
+   « Blé tendre » va dans « Céréales et oléoprotéagineux ») ;
+2. dans les groupes fourre-tout (« Divers », « Autres surfaces »...), quelques
+   cultures sont reclassées une par une grâce à un mot de leur libellé (ex.
+   « lavande » va dans les plantes à parfum) ;
+3. ce qui ne correspond à rien va dans « Autres ».
+
+Les règles portent sur les libellés (le texte) plutôt que sur les codes :
+elles restent valables quand une nouvelle année ajoute des codes.
 """
 
 from __future__ import annotations
@@ -25,7 +36,11 @@ CATEGORIES = (CEREALES, FOURRAGE, PRAIRIES, FRUITS, MARAICHAGE, VIGNES, PPAM, AU
 
 
 def normaliser(texte: object) -> str:
-    """Minuscules, sans accents ni espaces superflus."""
+    """Simplifie un texte pour comparer des libellés : minuscules, sans accents.
+
+    Exemple : "  Blé   tendre " devient "ble tendre". Ainsi, une règle écrite
+    "ble tendre" reconnaît « Blé tendre », « BLE TENDRE » ou « blé  tendre ».
+    """
     if texte is None or (isinstance(texte, float) and pd.isna(texte)):
         return ""
     sans_accents = unicodedata.normalize("NFKD", str(texte)).encode("ascii", "ignore").decode()
@@ -83,7 +98,11 @@ EXCEPTIONS_PAC = (
 
 
 def categorie_pac(libelle_groupe: object, libelle_culture: object) -> tuple[str, bool]:
-    """Catégorie d'une culture PAC et indicateur « groupe reconnu »."""
+    """Catégorie d'une culture PAC, et un booléen : le groupe est-il connu des règles ?
+
+    Exemple : categorie_pac("Autres cultures industrielles", "Lavande")
+    renvoie ("Plantes à parfum, aromatiques et médicinales", True).
+    """
     groupe = normaliser(libelle_groupe)
     culture = normaliser(libelle_culture)
     for debut, categorie in GROUPES_PAC:
@@ -97,7 +116,11 @@ def categorie_pac(libelle_groupe: object, libelle_culture: object) -> tuple[str,
 
 
 def classer_pac(ref: pd.DataFrame) -> pd.DataFrame:
-    """Ajoute `categorie` au référentiel PAC (colonnes de l'IGN, casse libre)."""
+    """Classe tout le référentiel PAC : ajoute les colonnes `categorie` et `groupe_reconnu`.
+
+    `ref` est le CSV de l'IGN lu par lire_ref_pac. Les noms de colonnes sont
+    cherchés sans tenir compte des majuscules.
+    """
     colonnes = {c.lower(): c for c in ref.columns}
     requis = ("code_culture", "libelle_culture", "libelle_groupe_culture")
     manquantes = [c for c in requis if c not in colonnes]
@@ -139,7 +162,11 @@ EXCEPTIONS_CPFBIO = (
 
 
 def categorie_cpfbio(groupe: object, sous_groupe: object, libelle: object) -> tuple[str, bool]:
-    """Catégorie d'une culture CPFBIO et indicateur « groupe reconnu »."""
+    """Catégorie d'une culture CPFBIO, et un booléen : le groupe est-il connu des règles ?
+
+    Particularité : le groupe « Surfaces fourragères » est partagé selon le
+    sous-groupe, entre « Prairies » (prairies, parcours) et « Cultures fourragères ».
+    """
     g, sg, lbl = normaliser(groupe), normaliser(sous_groupe), normaliser(libelle)
     if g.startswith("surfaces fourrageres"):
         if "prairie" in sg or "parcours" in sg:
@@ -156,7 +183,7 @@ def categorie_cpfbio(groupe: object, sous_groupe: object, libelle: object) -> tu
 
 
 def classer_cpfbio(ref: pd.DataFrame) -> pd.DataFrame:
-    """Ajoute `categorie` à la liste CPFBIO."""
+    """Classe toute la liste CPFBIO : ajoute les colonnes `categorie` et `groupe_reconnu`."""
     colonnes = {normaliser(c).replace(" ", "_"): c for c in ref.columns}
     requis = ("groupe", "sous_groupe", "lbl_production", "code_production")
     manquantes = [c for c in requis if c not in colonnes]
@@ -180,7 +207,12 @@ def classer_cpfbio(ref: pd.DataFrame) -> pd.DataFrame:
 
 
 def lire_ref_pac(chemin) -> pd.DataFrame:
-    """Lit le CSV de l'IGN, dont le séparateur et l'encodage varient selon les années."""
+    """Lit le CSV des cultures PAC de l'IGN.
+
+    sep=None laisse pandas deviner le séparateur (« ; » ou « , »). Si le
+    fichier n'est pas en UTF-8, on réessaie en latin-1, l'autre encodage
+    courant des fichiers français.
+    """
     for encodage in ("utf-8-sig", "latin-1"):
         try:
             return pd.read_csv(chemin, sep=None, engine="python", dtype=str, encoding=encodage)
@@ -190,6 +222,7 @@ def lire_ref_pac(chemin) -> pd.DataFrame:
 
 
 def lire_ref_cpfbio(chemin) -> pd.DataFrame:
+    """Lit la liste CPFBIO : un CSV, ou l'onglet « CPFBIO » du fichier Excel."""
     if str(chemin).endswith(".csv"):
         return pd.read_csv(chemin, dtype=str)
     return pd.read_excel(chemin, sheet_name="CPFBIO", dtype=str)

@@ -1,4 +1,12 @@
-"""Exports : tables CSV, données du site et couche SIG des parcelles."""
+"""Étape « exporter » : sortir les résultats de la base.
+
+Trois sorties :
+- les tables de synthèse en CSV, dans data/processed/ ;
+- les données de la page web, dans docs/data/ : site.json (chiffres clés,
+  catégories, qualité) et aac.geojson (contour et indicateurs de chaque AAC) ;
+- en option (--gpkg), toutes les parcelles rattachées aux AAC dans un
+  GeoPackage, à ouvrir dans QGIS. Ce fichier est trop gros pour être versionné.
+"""
 
 from __future__ import annotations
 
@@ -14,10 +22,14 @@ from .config import BUFFER_M, PAGES_SOURCES, PROCESSED, SCHEMA, SEUIL_RECOUVREME
 
 S = SCHEMA
 CATEGORIES_SITE = (*CATEGORIES, "Non classé")
+# Les contours d'AAC sont simplifiés pour la carte web : un détail de moins
+# de 50 m ne se voit pas à l'échelle de la France, et le fichier est bien
+# plus léger à télécharger.
 TOLERANCE_SIMPLIFICATION_M = 50
 
 
 def annees_traitees() -> list[int]:
+    """Millésimes déjà calculés dans la base, du plus ancien au plus récent."""
     if not db.table_existe("synthese_nationale"):
         return []
     df = db.requete(f'SELECT annee FROM "{S}".synthese_nationale ORDER BY annee')
@@ -25,6 +37,7 @@ def annees_traitees() -> list[int]:
 
 
 def exporter_csv() -> None:
+    """Écrit les trois tables de synthèse en CSV (tous millésimes confondus)."""
     PROCESSED.mkdir(parents=True, exist_ok=True)
     for table in ("synthese_aac", "synthese_categorie", "synthese_nationale"):
         df = db.requete(f'SELECT * FROM "{S}".{table} ORDER BY 1, 2')
@@ -33,17 +46,31 @@ def exporter_csv() -> None:
 
 
 def _arrondir(valeur, chiffres: int = 4):
+    """Arrondit un nombre ; renvoie None pour une valeur manquante.
+
+    Le format JSON n'accepte pas la valeur « NaN » (not a number) de pandas :
+    toute valeur manquante doit devenir None, écrit null dans le fichier.
+    """
     if valeur is None or pd.isna(valeur):
         return None
     return round(float(valeur), chiffres)
 
 
 def _texte(valeur):
+    """Convertit en texte ; renvoie None pour une valeur manquante (voir _arrondir)."""
     return None if valeur is None or pd.isna(valeur) else str(valeur)
 
 
 def exporter_geojson(annee: int, precedente: int | None) -> int:
-    """AAC simplifiées en WGS 84 avec leurs indicateurs, pour la carte du site."""
+    """Écrit docs/data/aac.geojson : une entité par AAC, pour la carte du site.
+
+    GeoJSON est le format géographique standard du web. Il impose les
+    coordonnées en degrés (WGS 84, code EPSG 4326), d'où la conversion
+    ST_Transform(..., 4326) depuis le Lambert 93. Chaque AAC porte ses
+    indicateurs et la surface de chaque catégorie de culture, affichés dans la
+    fiche quand on clique dessus. `precedente` permet d'ajouter la part bio de
+    l'année précédente, pour afficher l'évolution.
+    """
     df = db.requete(
         f"""
         WITH cat AS (
@@ -101,6 +128,10 @@ def exporter_geojson(annee: int, precedente: int | None) -> int:
 
 
 def exporter_site(demo: bool = False) -> None:
+    """Écrit docs/data/site.json et docs/data/aac.geojson, lus par la page web.
+
+    demo=True affiche un bandeau « données de démonstration » sur la page.
+    """
     annees = annees_traitees()
     if not annees:
         raise RuntimeError("aucun millésime traité : lancer `traiter` d'abord")
@@ -163,7 +194,11 @@ def exporter_site(demo: bool = False) -> None:
 
 
 def exporter_gpkg(annee: int) -> None:
-    """Parcelles rattachées aux AAC, pour QGIS (non versionné, trop volumineux)."""
+    """Écrit les parcelles rattachées aux AAC dans un GeoPackage, pour QGIS.
+
+    ogr2ogr exécute la requête -sql directement dans la base et écrit le
+    résultat dans le fichier, sans passer par Python.
+    """
     PROCESSED.mkdir(parents=True, exist_ok=True)
     sortie = PROCESSED / f"parcel_aac_{annee}.gpkg"
     requete = f"""
@@ -190,6 +225,7 @@ def exporter_gpkg(annee: int) -> None:
 
 
 def exporter(demo: bool = False, gpkg: int | None = None) -> None:
+    """Lance tous les exports. `gpkg` : année des parcelles à exporter, ou None."""
     exporter_csv()
     exporter_site(demo=demo)
     if gpkg:

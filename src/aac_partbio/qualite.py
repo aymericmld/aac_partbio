@@ -1,4 +1,14 @@
-"""Contrôles d'un millésime : bloquants (cohérence) et diagnostics (à lire)."""
+"""Étape « controler » : vérifier les résultats avant de les publier.
+
+Deux niveaux de contrôle :
+- les contrôles bloquants vérifient des règles qui doivent toujours être
+  vraies (une part bio entre 0 et 100 %, une surface dans l'AAC jamais plus
+  grande que la parcelle...). Si l'un échoue, le programme s'arrête : les
+  résultats sont faux et ne doivent pas être exportés ;
+- les diagnostics sont des mesures à lire, sans bon ou mauvais absolu (part
+  des parcelles bio retrouvées dans le RPG, codes cultures sans catégorie...).
+  Ils sont écrits dans data/processed/rapport_qualite_AAAA.json.
+"""
 
 from __future__ import annotations
 
@@ -7,17 +17,25 @@ import json
 from . import chargement, db
 from .config import PROCESSED, SCHEMA
 
-S = SCHEMA
+S = SCHEMA  # nom court, pour alléger l'écriture des requêtes
+# Marge acceptée sur les comparaisons de surfaces, en hectares (100 m²) :
+# les calculs géométriques produisent de minuscules écarts d'arrondi.
 TOLERANCE_HA = 0.01
 
 
 def _valeur(sql: str, params: tuple = ()) -> float:
+    """Exécute une requête qui renvoie un seul nombre et renvoie ce nombre (0 si vide)."""
     df = db.requete(sql, params)
     v = df.iat[0, 0]
     return float(v) if v is not None else 0.0
 
 
 def controles_bloquants(annee: int) -> list[str]:
+    """Renvoie la liste des règles non respectées ; une liste vide signifie « tout va bien ».
+
+    Chaque bloc ci-dessous compte les lignes qui violent une règle, ou
+    compare deux totaux qui devraient être égaux.
+    """
     erreurs: list[str] = []
     a = (annee,)
     if _valeur(f'SELECT count(*) FROM "{S}".parcel WHERE annee = %s', a) == 0:
@@ -55,6 +73,7 @@ def controles_bloquants(annee: int) -> list[str]:
 
 
 def diagnostics(annee: int) -> dict:
+    """Calcule les mesures de qualité du croisement (voir le docstring du module)."""
     a = (annee,)
     colonnes = chargement.detecter(annee)
     sources = db.requete(
@@ -124,6 +143,7 @@ def diagnostics(annee: int) -> dict:
 
 
 def controler(annee: int) -> dict:
+    """Lance les contrôles bloquants, puis écrit le rapport de diagnostics."""
     erreurs = controles_bloquants(annee)
     if erreurs:
         raise ValueError("Contrôles qualité en échec :\n- " + "\n- ".join(erreurs))

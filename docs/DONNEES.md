@@ -31,7 +31,7 @@ Le référentiel `REF_CULTURES_GROUPES_CULTURES` utilisé pour 2025 est identiqu
 - **Champs utilisés :** `culture` (code CPFBIO, plusieurs codes séparés par une virgule en cas de multiculture), `convers` (AB, C1, C2, C3), `surface`.
 - **Référentiel CPFBIO :** `liste-cultures-cpfbio.xlsx`, onglet `CPFBIO`, colonnes `groupe`, `sous_groupe`, `lbl_production`, `code_production`.
 
-Le jeu « Parcelles en Agriculture Biologique déclarées à la PAC » de l'Agence Bio s'arrête à la campagne 2023 ; il n'est plus utilisé.
+Le jeu « Parcelles en Agriculture Biologique déclarées à la PAC » de l'Agence Bio s'arrête à la campagne 2023 ; il n'est pas utilisé ici.
 
 ## 3. Aires d'alimentation de captage, Sandre
 
