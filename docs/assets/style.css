@@ -256,8 +256,3 @@ footer h4 { color: #fff; font-family: "Playfair Display"; font-size: 1.1rem; mar
   .reveal { opacity: 1; transform: none; }
 }
 
-/* Signalement des AAC à très faible surface agricole */
-.badge-petite {
-  display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 99px; font-size: 0.7rem;
-  font-weight: 700; background: #fff4d6; color: #6b4a00; border: 1px solid #f0d995; white-space: nowrap;
-}

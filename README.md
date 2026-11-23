@@ -67,7 +67,7 @@ Les céréales et oléoprotéagineux dominent dans 1 175 AAC sur 1 590. C'est au
 
 ### De fortes disparités entre AAC
 
-29 AAC n'ont aucune parcelle agricole connue et 39 en ont moins de 10 ha. Sur ces 39 AAC, une seule parcelle suffit à faire basculer la part de bio : une AAC de 5 ha avec une parcelle bio de 2 ha affiche 40 % de bio. Pour éviter de surinterpréter ces pourcentages, la page les met en évidence : dans le tableau, une étiquette jaune « moins de 10 ha » apparaît à côté de leur surface, une case à cocher permet de n'afficher qu'elles, et leur fiche sur la carte rappelle que leur part de bio est fragile. Parmi les 1 522 AAC qui comptent au moins 10 ha agricoles :
+29 AAC n'ont aucune parcelle agricole connue et 39 en ont moins de 10 ha. Sur ces 39 AAC, une seule parcelle suffit à faire basculer la part de bio : une AAC de 5 ha avec une parcelle bio de 2 ha affiche 40 % de bio. Leur pourcentage est donc à lire avec prudence ; leur fiche sur la carte le rappelle. Parmi les 1 522 AAC qui comptent au moins 10 ha agricoles :
 
 - 385, soit une sur quatre, n'ont aucune parcelle bio ;
 - la part bio médiane est de 3,6 % ;

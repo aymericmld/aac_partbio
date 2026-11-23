@@ -251,7 +251,7 @@
   const colonnes = [
     ["nom", "AAC", (p) => `${esc(p.nom || "–")}<div class="muted">${esc(p.cdaac)}</div>`],
     ["categorie_dominante", "Culture dominante", (p) => esc(p.categorie_dominante || "–")],
-    ["sau_ha", "Surface agricole", (p) => `${petite(p) ? `${fmt1.format(p.sau_ha)} ha` : ha(p.sau_ha)}${petite(p) ? '<span class="badge-petite" title="Part bio sensible à une seule parcelle">moins de 10 ha</span>' : ""}`, "r"],
+    ["sau_ha", "Surface agricole", (p) => (petite(p) ? `${fmt1.format(p.sau_ha)} ha` : ha(p.sau_ha)), "r"],
     ["part_sau", "Part agricole", (p) => pct(p.part_sau, 0), "r"],
     ["part_bio", "Part bio", (p) => `<span class="minibar" style="width:${Math.round((p.part_bio || 0) * 60)}px"></span>${pct(p.part_bio)}`, "r"],
   ];
@@ -260,11 +260,10 @@
     const p = f.properties;
     p.evo = p.part_bio != null && p.part_bio_prec != null ? p.part_bio - p.part_bio_prec : null;
   });
-  const tableau = { tri: "sau_ha", asc: false, page: 0, taille: 15, petites: false };
+  const tableau = { tri: "sau_ha", asc: false, page: 0, taille: 15 };
   function dessinerTableau() {
     const lignes = features.map((f) => f.properties)
       .filter((p) => !filtre || p.categorie_dominante === filtre)
-      .filter((p) => !tableau.petites || petite(p))
       .sort((a, b) => {
         const va = a[tableau.tri], vb = b[tableau.tri];
         if (va == null) return 1;
@@ -293,20 +292,14 @@
       $("carte").scrollIntoView({ behavior: "smooth" });
     }));
   }
-  // Petites AAC : leur part bio bascule avec une seule parcelle. Triées par
-  // surface décroissante, elles sont en fin de tableau : un filtre les isole.
+  // Petites AAC : leur part bio bascule avec une seule parcelle. Le texte
+  // au-dessus du tableau donne leur nombre.
   const petites = features.filter((f) => petite(f.properties)).length;
   const sansSau = features.filter((f) => f.properties.nb_parcelles === 0).length;
   $("petites-texte").innerHTML = `<b>${fmtInt.format(petites)} AAC</b> comptent moins de ${SAU_MIN} ha de surface agricole :
     leur part de bio peut basculer avec une seule parcelle (une AAC de 5 ha avec une parcelle bio de 2 ha affiche 40 % de bio).
-    Elles portent l'étiquette jaune « moins de 10 ha » dans le tableau, et la case ci-dessous permet de n'afficher qu'elles.
+    Leur pourcentage est donc à lire avec prudence.
     ${fmtInt.format(sansSau)} autres AAC n'ont aucune parcelle agricole connue.`;
-  $("filtre-petites-label").textContent = `Afficher seulement les ${fmtInt.format(petites)} AAC de moins de ${SAU_MIN} ha agricoles`;
-  $("filtre-petites").addEventListener("change", (e) => {
-    tableau.petites = e.target.checked;
-    tableau.page = 0;
-    dessinerTableau();
-  });
   dessinerTableau();
 
   // ------------------------------------------------------------ évolution
